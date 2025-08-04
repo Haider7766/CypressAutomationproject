@@ -1,4 +1,4 @@
-import { loginLocators } from "./LoginLocators";
+import { loginLocators } from "../Locators/LoginLocators";
 class Login {
   
 
