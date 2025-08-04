@@ -1,6 +1,6 @@
 // cypress/support/commands.js
 import { loginLocators } from '../locators/LoginLocators.JS';
-Cypress.Commands.add('login12', (username, password) => {
+Cypress.Commands.add('login', (username, password) => {
   cy.visit('/');
   cy.get(loginLocators.txtuname).type(username);
   cy.get(loginLocators.txtpassword).type(password);
