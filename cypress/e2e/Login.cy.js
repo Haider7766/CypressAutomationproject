@@ -1,18 +1,34 @@
-import Login from "../Pages/LoginPges";
+import Login from "../Pages/LoginPage";
 
-describe('OrangeHRM Login Test', () => {
-    let loginData;
-  beforeEach(function () {
-    cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
-    cy.fixture('loginData').then((data) => {loginData= data})
-     
-  })
+describe('OrangeHRM Login Test using POM', () => {
+  let loginData;
 
-  it('should login successfully using fixture and POM', function () {
-   const login = new Login();
+  beforeEach(() => {
+    cy.fixture('loginData').then((data) => {
+      loginData = data;
+    });
+  });
+
+  it('should login successfully using POM', () => {
+    const login = new Login();
+    cy.visit('/');
     login.setUserName(loginData.username);
     login.setPassword(loginData.password);
     login.clickSubmit();
-   login.verifyLogin();
-  })
-})
+    login.verifyLogin();
+  });
+});
+
+describe('OrangeHRM Login Test using Custom Command', () => {
+  let loginData;
+
+  beforeEach(() => {
+    cy.fixture('loginData').then((data) => {
+      loginData = data;
+    });
+  });
+
+  it('should login successfully using custom command', () => {
+    cy.login12(loginData.username, loginData.password);
+  });
+});
