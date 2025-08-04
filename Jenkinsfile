@@ -4,6 +4,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 bat 'npm install'
+                bat 'npx cypress install'  // <--- add this line
             }
         }
         stage('Run Cypress Tests') {
