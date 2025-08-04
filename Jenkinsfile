@@ -1,4 +1,4 @@
-��pipeline {
+pipeline {
     agent any
 
     stages {
@@ -9,7 +9,7 @@
             }
         }
 
-        stage('Run Cypress Tests'{
+        stage('Run Cypress Tests') {
             steps {
                 bat 'npx cypress run --browser chrome'
             }
