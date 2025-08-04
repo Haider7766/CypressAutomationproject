@@ -7,6 +7,8 @@ module.exports = defineConfig({
     overwrite: false,
     html: true,
     json: true,
+    video: true, // Enable video recording
+  screenshotOnRunFailure: true, // Screenshot on test failure
   },
   e2e: {
     baseUrl: 'https://opensource-demo.orangehrmlive.com',
