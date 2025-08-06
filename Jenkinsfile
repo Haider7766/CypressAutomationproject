@@ -25,7 +25,7 @@ pipeline {
     post {
         always {
             publishHTML(target: [
-                reportDir: 'cypress/reports/html',
+              reportDir: 'cypress/reports/jsons',
                 reportFiles: 'index.html',
                 reportName: 'Cypress Test Report',
                 allowMissing: true,
