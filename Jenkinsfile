@@ -11,7 +11,8 @@ pipeline {
 
         stage('Run Cypress Tests') {
             steps {
-                bat 'npx cypress run --reporter mochawesome --reporter-options reportDir=cypress/reports/jsons,reportFilename=index,overwrite=true,html=true,json=false --browser chrome'
+                npx cypress run --reporter mochawesome --reporter-options reportDir=cypress/reports/jsons,reportFilename=index,overwrite=true,html=true,json=true --browser chrome
+
             }
         }
     }
