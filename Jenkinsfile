@@ -11,7 +11,7 @@ pipeline {
 
         stage('Run Cypress Tests') {
             steps {
-                bat 'npx cypress run --reporter mochawesome --reporter-options reportDir=cypress/reports,reportFilename=index,overwrite=false,html=true,json=false --browser chrome'
+                bat 'npx cypress run --reporter mochawesome --reporter-options reportDir=cypress/reports/jsons,reportFilename=index,overwrite=true,html=true,json=false --browser chrome'
             }
         }
     }
@@ -19,8 +19,8 @@ pipeline {
     post {
         always {
             publishHTML(target: [
-                reportDir: 'cypress/reports',    // folder with your HTML report
-                reportFiles: 'index.html',       // main report file
+                reportDir: 'cypress/reports/jsons',
+                reportFiles: 'index.html',
                 reportName: 'Cypress Test Report',
                 allowMissing: false,
                 keepAll: true,
@@ -29,32 +29,33 @@ pipeline {
         }
 
         success {
-            emailext (
+            emailext(
                 to: 'haabbasi626@gmail.com',
-                subject: " Build SUCCESS - #${env.BUILD_NUMBER}",
+                subject: "Build SUCCESS - #${env.BUILD_NUMBER}",
                 body: """The Jenkins build was successful!
 
 ✔ Job: ${env.JOB_NAME}
 ✔ Build Number: ${env.BUILD_NUMBER}
 ✔ Result: ${currentBuild.currentResult}
-✔ URL: ${env.BUILD_URL}
-"""
+✔ Report: ${env.BUILD_URL}Cypress_20Test_20Report/
+""",
+                attachmentsPattern: 'cypress/reports/jsons/index.html'
             )
         }
 
         failure {
-            emailext (
+            emailext(
                 to: 'haabbasi626@gmail.com',
-                subject: " Build FAILED - #${env.BUILD_NUMBER}",
+                subject: "Build FAILED - #${env.BUILD_NUMBER}",
                 body: """The Jenkins build has failed.
 
 ✖ Job: ${env.JOB_NAME}
 ✖ Build Number: ${env.BUILD_NUMBER}
 ✖ Result: ${currentBuild.currentResult}
-✖ URL: ${env.BUILD_URL}
-"""
+✖ Report (if available): ${env.BUILD_URL}Cypress_20Test_20Report/
+""",
+                attachmentsPattern: 'cypress/reports/jsons/index.html'
             )
         }
     }
 }
-
