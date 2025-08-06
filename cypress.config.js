@@ -3,13 +3,16 @@ const { defineConfig } = require('cypress');
 module.exports = defineConfig({
   reporter: 'cypress-mochawesome-reporter',
   reporterOptions: {
-    reportDir: 'cypress/reports',
+   reportDir: 'cypress/reports/jsons',
+
     overwrite: false,
     html: true,
     json: true,
     video: true, // Enable video recording
     screenshotOnRunFailure: true, // Screenshot on test failure
   },
+  video: true,
+
   e2e: {
     baseUrl: 'https://opensource-demo.orangehrmlive.com',
     setupNodeEvents(on, config) {
