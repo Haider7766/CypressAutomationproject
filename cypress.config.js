@@ -1,13 +1,13 @@
 const { defineConfig } = require('cypress');
+const { merge } = require('mochawesome-merge');
 const marge = require('mochawesome-report-generator');
-const merge = require('mochawesome-merge');
 
 module.exports = defineConfig({
   reporter: 'cypress-mochawesome-reporter',
   reporterOptions: {
-    reportDir: 'cypress/reports/jsons',
+    reportDir: 'cypress/reports/json', // <- only json folder
     overwrite: true,
-    html: false, // Cypress won’t generate HTML itself
+    html: false,
     json: true,
   },
   video: true,
@@ -17,13 +17,13 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       require('cypress-mochawesome-reporter/plugin')(on);
 
-      //  Merge and generate report after test run
+      // Merge & generate HTML report after tests
       on('after:run', async () => {
-        const jsonDir = 'cypress/reports/jsons';
-        const jsonReport = await merge({ files: [`${jsonDir}/*.json`] });
+        const jsonReport = await merge({ files: ['cypress/reports/json/*.json'] });
         await marge.create(jsonReport, {
-          reportDir: jsonDir,
-          reportFilename: 'index_merged', // You can name it 'index' if needed
+          reportDir: 'cypress/reports/html',  // <- HTML folder
+          reportFilename: 'final-report',
+          inlineAssets: true,
         });
       });
 
@@ -31,4 +31,3 @@ module.exports = defineConfig({
     },
   },
 });
-

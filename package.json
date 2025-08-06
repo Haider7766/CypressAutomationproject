@@ -3,12 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-"scripts": {
-  "test": "cypress run --reporter mochawesome --reporter-options reportDir=cypress/reports/json,overwrite=true,html=false,json=true",
-  "merge-report": "mochawesome-merge cypress/reports/json/*.json > cypress/reports/report.json",
-  "generate-report": "marge cypress/reports/report.json -f final-report -o cypress/reports/html"
-}
-,
+  "scripts": {
+    "cypress:run": "cypress run --reporter mochawesome --reporter-options reportDir=cypress/reports/json,overwrite=true,html=false,json=true",
+    "merge-report": "mochawesome-merge cypress/reports/json/*.json > cypress/reports/report.json",
+    "generate-report": "marge cypress/reports/report.json -f final-report -o cypress/reports/html"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
