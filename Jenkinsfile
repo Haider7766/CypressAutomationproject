@@ -11,27 +11,33 @@ pipeline {
 
         stage('Run Cypress Tests') {
             steps {
-                bat 'npx cypress run --reporter mochawesome --reporter-options reportDir=cypress/reports/jsons,reportFilename=index,overwrite=true,html=true,json=true --browser chrome'
+                bat 'npx cypress run --reporter mochawesome --reporter-options reportDir=cypress/reports/jsons,overwrite=true,html=false,json=true --browser chrome'
             }
         }
 
-        stage('Generate Mochawesome Report') {
+        stage('Merge & Generate HTML Report') {
             steps {
-                bat 'npx marge cypress/reports/jsons/*.json -f index -o cypress/reports/html'
+                // Merge all JSON files
+                bat 'npx mochawesome-merge cypress/reports/jsons/*.json > cypress/reports/report.json'
+
+                // Generate final HTML report
+                bat 'npx marge cypress/reports/report.json -f final-report -o cypress/reports/html'
             }
         }
     }
 
     post {
         always {
+            // Publish HTML report correctly
             publishHTML(target: [
-              reportDir: 'cypress/reports/jsons',
-                reportFiles: 'index.html',
-                reportName: 'Cypress Test Report',
-                allowMissing: true,
-                keepAll: true,
-                alwaysLinkToLastBuild: true
-            ])
+    reportDir: 'cypress/reports/jsons',
+    reportFiles: 'index.html',
+    reportName: 'Cypress Test Report',
+    allowMissing: true,
+    keepAll: true,
+    alwaysLinkToLastBuild: true
+])
+
         }
 
         success {
@@ -45,7 +51,7 @@ pipeline {
 ✔ Result: ${currentBuild.currentResult}
 ✔ Report: ${env.BUILD_URL}Cypress_20Test_20Report/
 """,
-               attachmentsPattern: 'cypress/reports/html/index.html'
+                attachmentsPattern: 'cypress/reports/html/final-report.html'
             )
         }
 
@@ -60,7 +66,7 @@ pipeline {
 ✖ Result: ${currentBuild.currentResult}
 ✖ Report (if available): ${env.BUILD_URL}Cypress_20Test_20Report/
 """,
-                attachmentsPattern: 'cypress/reports/html/index.html'
+                attachmentsPattern: 'cypress/reports/html/final-report.html'
             )
         }
     }
