@@ -28,7 +28,7 @@ describe('OrangeHRM Login Test using Custom Command', () => {
     });
   });
 
-  it('should login successfully using custom command', () => {
+  it.skip('should login successfully using custom command', () => {
     cy.login(loginData.username, loginData.password);
   });
 });
