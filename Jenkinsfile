@@ -11,12 +11,23 @@ pipeline {
 
         stage('Run Cypress Tests') {
             steps {
-                bat 'npx cypress run --browser chrome'
+                bat 'npx cypress run --reporter mochawesome --reporter-options reportDir=cypress/reports,reportFilename=index,overwrite=false,html=true,json=false --browser chrome'
             }
         }
     }
 
     post {
+        always {
+            publishHTML(target: [
+                reportDir: 'cypress/reports',    // folder with your HTML report
+                reportFiles: 'index.html',       // main report file
+                reportName: 'Cypress Test Report',
+                allowMissing: false,
+                keepAll: true,
+                alwaysLinkToLastBuild: true
+            ])
+        }
+
         success {
             emailext (
                 to: 'haabbasi626@gmail.com',
@@ -46,3 +57,4 @@ pipeline {
         }
     }
 }
+
