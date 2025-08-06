@@ -18,14 +18,15 @@ pipeline {
 
     post {
         always {
-            publishHTML(target: [
-                reportDir: 'cypress/reports/jsons',
-                reportFiles: 'index.html',
-                reportName: 'Cypress Test Report',
-                allowMissing: false,
-                keepAll: true,
-                alwaysLinkToLastBuild: true
-            ])
+          publishHTML(target: [
+    reportDir: 'cypress/reports/jsons',
+    reportFiles: 'index_008.html',
+    reportName: 'Cypress Test Report',
+    allowMissing: false,
+    keepAll: true,
+    alwaysLinkToLastBuild: true
+])
+
         }
 
         success {
@@ -39,7 +40,8 @@ pipeline {
 ✔ Result: ${currentBuild.currentResult}
 ✔ Report: ${env.BUILD_URL}Cypress_20Test_20Report/
 """,
-                attachmentsPattern: 'cypress/reports/jsons/index.html'
+               attachmentsPattern: 'cypress/reports/jsons/index_008.html'
+
             )
         }
 
