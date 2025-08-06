@@ -5,9 +5,9 @@
     "passes": 2,
     "pending": 0,
     "failures": 0,
-    "start": "2025-08-06T11:15:35.747Z",
-    "end": "2025-08-06T11:15:47.517Z",
-    "duration": 11770,
+    "start": "2025-08-06T11:48:34.220Z",
+    "end": "2025-08-06T11:48:48.465Z",
+    "duration": 14245,
     "testsRegistered": 2,
     "passPercent": 100,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "25b0800a-f2db-450e-85a8-cdf8986729f7",
+      "uuid": "86b13aa1-2dcc-4c3b-a858-b4a49d8df4ad",
       "title": "",
       "fullFile": "cypress\\e2e\\Login.cy.js",
       "file": "cypress\\e2e\\Login.cy.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "7cd20877-f576-4d91-8bca-7dc835f45cef",
+          "uuid": "5e55af0d-1c44-4734-bf03-8ed3a7a6dac7",
           "title": "Login Test - Page Object Model",
           "fullFile": "",
           "file": "",
@@ -38,7 +38,7 @@
               "title": "should login successfully",
               "fullTitle": "Login Test - Page Object Model should login successfully",
               "timedOut": null,
-              "duration": 6326,
+              "duration": 7397,
               "state": "passed",
               "speed": "medium",
               "pass": true,
@@ -47,15 +47,15 @@
               "context": "{\n  \"title\": \"cypress-mochawesome-reporter-videos-passed\",\n  \"value\": \"cypress\\\\e2e\\\\Login.cy.js\"\n}",
               "code": "login.setUserName(this.loginData.username);\nlogin.setPassword(this.loginData.password);\nlogin.clickSubmit();\nlogin.verifyLogin();",
               "err": {},
-              "uuid": "d67799be-5f19-414a-be66-476055d0711d",
-              "parentUUID": "7cd20877-f576-4d91-8bca-7dc835f45cef",
+              "uuid": "67008498-32eb-4fa0-847d-b7384666e62a",
+              "parentUUID": "5e55af0d-1c44-4734-bf03-8ed3a7a6dac7",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [
             {
-              "uuid": "86b96a9a-0d31-4407-97f3-a5ccc87eb1df",
+              "uuid": "4bf13454-1f99-4dd7-9296-480166acfa39",
               "title": "OrangeHRM Login Test using Custom Command",
               "fullFile": "",
               "file": "",
@@ -66,7 +66,7 @@
                   "title": "should login successfully using custom command",
                   "fullTitle": "Login Test - Page Object Model OrangeHRM Login Test using Custom Command should login successfully using custom command",
                   "timedOut": null,
-                  "duration": 5317,
+                  "duration": 6692,
                   "state": "passed",
                   "speed": "medium",
                   "pass": true,
@@ -75,32 +75,32 @@
                   "context": "{\n  \"title\": \"cypress-mochawesome-reporter-videos-passed\",\n  \"value\": \"cypress\\\\e2e\\\\Login.cy.js\"\n}",
                   "code": "cy.login(loginData.username, loginData.password);",
                   "err": {},
-                  "uuid": "0dc26303-11c7-4739-9daa-7189b8ffa616",
-                  "parentUUID": "86b96a9a-0d31-4407-97f3-a5ccc87eb1df",
+                  "uuid": "7854604c-bd9b-4cfc-8553-217873f501f6",
+                  "parentUUID": "4bf13454-1f99-4dd7-9296-480166acfa39",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "0dc26303-11c7-4739-9daa-7189b8ffa616"
+                "7854604c-bd9b-4cfc-8553-217873f501f6"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 5317,
+              "duration": 6692,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
             }
           ],
           "passes": [
-            "d67799be-5f19-414a-be66-476055d0711d"
+            "67008498-32eb-4fa0-847d-b7384666e62a"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 6326,
+          "duration": 7397,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
@@ -124,7 +124,7 @@
       "options": {
         "quiet": false,
         "reportFilename": "mochawesome",
-        "saveHtml": false,
+        "saveHtml": true,
         "saveJson": true,
         "consoleReporter": "spec",
         "useInlineDiffs": false,
@@ -134,10 +134,13 @@
     },
     "marge": {
       "options": {
-        "reportDir": "cypress\\reports\\json\\.jsons",
-        "overwrite": false,
-        "html": false,
-        "json": true
+        "reportDir": "cypress/reports",
+        "overwrite": true,
+        "html": true,
+        "json": true,
+        "charts": true,
+        "embeddedScreenshots": true,
+        "inlineAssets": true
       },
       "version": "6.2.0"
     }

@@ -11,14 +11,17 @@ pipeline {
 
         stage('Run Cypress Tests') {
             steps {
-                bat 'npx cypress run --reporter mochawesome --reporter-options reportDir=cypress/reports/jsons,overwrite=true,html=false,json=true --browser chrome'
+                bat 'npx cypress run --reporter mochawesome --reporter-options reportDir=cypress/reports/json,overwrite=true,html=false,json=true --browser chrome'
             }
         }
 
         stage('Merge & Generate HTML Report') {
             steps {
+                // Create the HTML folder if it doesn't exist
+                bat 'mkdir cypress\\reports\\html'
+
                 // Merge all JSON files
-                bat 'npx mochawesome-merge cypress/reports/jsons/*.json > cypress/reports/report.json'
+                bat 'npx mochawesome-merge cypress/reports/json/*.json > cypress/reports/report.json'
 
                 // Generate final HTML report
                 bat 'npx marge cypress/reports/report.json -f final-report -o cypress/reports/html'
@@ -30,14 +33,13 @@ pipeline {
         always {
             // Publish HTML report correctly
             publishHTML(target: [
-    reportDir: 'cypress/reports/jsons',
-    reportFiles: 'index.html',
-    reportName: 'Cypress Test Report',
-    allowMissing: true,
-    keepAll: true,
-    alwaysLinkToLastBuild: true
-])
-
+                reportDir: 'cypress/reports/html',
+                reportFiles: 'final-report.html',
+                reportName: 'Cypress Test Report',
+                allowMissing: true,
+                keepAll: true,
+                alwaysLinkToLastBuild: true
+            ])
         }
 
         success {
