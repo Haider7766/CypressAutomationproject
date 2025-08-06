@@ -3,15 +3,14 @@ const { defineConfig } = require('cypress');
 module.exports = defineConfig({
   reporter: 'cypress-mochawesome-reporter',
   reporterOptions: {
-   reportDir: 'cypress/reports/jsons',
-
-    overwrite: false,
-    html: true,
-    json: true,
-    video: true, // Enable video recording
-    screenshotOnRunFailure: true, // Screenshot on test failure
+    reportDir: 'cypress/reports/jsons',  // Path for JSON and HTML reports
+    overwrite: false,                      // Do not overwrite reports
+    html: true,                           // Generate HTML report
+    json: true,                           // Generate JSON report
+    video: true,                         // Attach video info in report metadata
+    screenshotOnRunFailure: true,        // Capture screenshot on failure
   },
-  video: true,
+  video: true,                            // Enable video recording in Cypress
 
   e2e: {
     baseUrl: 'https://opensource-demo.orangehrmlive.com',
@@ -21,3 +20,4 @@ module.exports = defineConfig({
     },
   },
 });
+
