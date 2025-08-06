@@ -11,23 +11,27 @@ pipeline {
 
         stage('Run Cypress Tests') {
             steps {
-                npx cypress run --reporter mochawesome --reporter-options reportDir=cypress/reports/jsons,reportFilename=index,overwrite=true,html=true,json=true --browser chrome
+                bat 'npx cypress run --reporter mochawesome --reporter-options reportDir=cypress/reports/jsons,reportFilename=index,overwrite=true,html=true,json=true --browser chrome'
+            }
+        }
 
+        stage('Generate Mochawesome Report') {
+            steps {
+                bat 'npx marge cypress/reports/jsons/*.json -f index -o cypress/reports/html'
             }
         }
     }
 
     post {
         always {
-          publishHTML(target: [
-    reportDir: 'cypress/reports/jsons',
-    reportFiles: 'index_008.html',
-    reportName: 'Cypress Test Report',
-    allowMissing: false,
-    keepAll: true,
-    alwaysLinkToLastBuild: true
-])
-
+            publishHTML(target: [
+                reportDir: 'cypress/reports/html',
+                reportFiles: 'index.html',
+                reportName: 'Cypress Test Report',
+                allowMissing: true,
+                keepAll: true,
+                alwaysLinkToLastBuild: true
+            ])
         }
 
         success {
@@ -41,8 +45,7 @@ pipeline {
 ✔ Result: ${currentBuild.currentResult}
 ✔ Report: ${env.BUILD_URL}Cypress_20Test_20Report/
 """,
-               attachmentsPattern: 'cypress/reports/jsons/index_008.html'
-
+               attachmentsPattern: 'cypress/reports/html/index.html'
             )
         }
 
@@ -57,7 +60,7 @@ pipeline {
 ✖ Result: ${currentBuild.currentResult}
 ✖ Report (if available): ${env.BUILD_URL}Cypress_20Test_20Report/
 """,
-                attachmentsPattern: 'cypress/reports/jsons/index.html'
+                attachmentsPattern: 'cypress/reports/html/index.html'
             )
         }
     }
