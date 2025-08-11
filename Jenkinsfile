@@ -14,8 +14,7 @@ pipeline {
                 bat 'npx cypress run --reporter mochawesome --reporter-options reportDir=cypress/reports/json,overwrite=true,html=false,json=true --browser chrome'
             }
         }
-
-       stage('Merge & Generate HTML Report') {
+stage('Merge & Generate HTML Report') {
     steps {
         bat '''
             if not exist cypress\\reports\\html mkdir cypress\\reports\\html
