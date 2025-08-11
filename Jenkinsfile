@@ -15,18 +15,20 @@ pipeline {
             }
         }
 
-        stage('Merge & Generate HTML Report') {
-            steps {
-                // Create the HTML folder if it doesn't exist
-                bat 'mkdir cypress\\reports\\html'
+       stage('Merge & Generate HTML Report') {
+    steps {
+        bat '''
+            if not exist cypress\\reports\\html mkdir cypress\\reports\\html
+            if exist cypress\\reports\\json\\*.json (
+                npx mochawesome-merge cypress/reports/json/*.json > cypress/reports/report.json
+                npx marge cypress/reports/report.json -f final-report -o cypress/reports/html
+            ) else (
+                echo No JSON files found to merge.
+            )
+        '''
+    }
+}
 
-                // Merge all JSON files
-                bat 'npx mochawesome-merge cypress/reports/json/*.json > cypress/reports/report.json'
-
-                // Generate final HTML report
-                bat 'npx marge cypress/reports/report.json -f final-report -o cypress/reports/html'
-            }
-        }
     }
 
     post {
