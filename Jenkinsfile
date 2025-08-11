@@ -15,7 +15,7 @@ pipeline {
             }
         }
 
-        stage('Merge & Generate HTML Report') {
+       stage('Merge & Generate HTML Report') {
     steps {
         bat '''
             if not exist cypress\\reports\\html mkdir cypress\\reports\\html
