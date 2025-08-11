@@ -16,7 +16,7 @@ module.exports = defineConfig({
   },
   video: true,
   e2e: {
-    baseUrl: 'https://opensource-demo.orangehrmlive.com',
+    baseUrl: 'https://ampdev.sigmaprocess.net/account/register',
     setupNodeEvents(on, config) {
       require('cypress-mochawesome-reporter/plugin')(on);
 
