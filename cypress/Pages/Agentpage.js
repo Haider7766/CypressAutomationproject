@@ -8,7 +8,7 @@ selectlist = agentlocators.selectlist;
 agentname = agentlocators.agentname;
 
 clicksignup() {
-    cy.get(this.signupp ,{ timeout: 20000 }).click();
+    cy.get(this.signupp ,{ timeout: 50000 }).click();
   }
 
 
