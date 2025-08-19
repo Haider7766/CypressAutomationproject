@@ -4,18 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx cypress run --reporter mochawesome",
-    "merge-report": "npx mochawesome-merge cypress/reports/*.json > cypress/reports/report.json",
-    "generate-report": "npx marge cypress/reports/report.json -f index -o cypress/reports"
-  },
+  "clean": "rimraf cypress/reports && rimraf cypress/videos",
+  "test:report": "npm run clean && npx cypress run"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "cypress": "^14.5.3",
     "cypress-mochawesome-reporter": "^4.0.0",
+    "mocha-junit-reporter": "^2.2.1",
     "mochawesome": "^7.1.3",
     "mochawesome-merge": "^5.0.0",
-    "mochawesome-report-generator": "^6.2.0"
+    "mochawesome-report-generator": "^6.2.0",
+    "rimraf": "^5.0.10"
   }
 }

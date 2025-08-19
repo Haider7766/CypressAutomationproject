@@ -1,14 +1,14 @@
 {
   "stats": {
-    "suites": 2,
-    "tests": 2,
-    "passes": 2,
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
     "pending": 0,
     "failures": 0,
-    "start": "2025-08-06T11:48:34.220Z",
-    "end": "2025-08-06T11:48:48.465Z",
-    "duration": 14245,
-    "testsRegistered": 2,
+    "start": "2025-08-19T05:18:21.698Z",
+    "end": "2025-08-19T05:18:30.856Z",
+    "duration": 9158,
+    "testsRegistered": 1,
     "passPercent": 100,
     "pendingPercent": 0,
     "other": 0,
@@ -18,89 +18,49 @@
   },
   "results": [
     {
-      "uuid": "86b13aa1-2dcc-4c3b-a858-b4a49d8df4ad",
+      "uuid": "b5396131-7c9b-4bf3-9f93-61dbed4fb2e5",
       "title": "",
-      "fullFile": "cypress\\e2e\\Login.cy.js",
-      "file": "cypress\\e2e\\Login.cy.js",
+      "fullFile": "cypress\\e2e\\Agent.cy.js",
+      "file": "cypress\\e2e\\Agent.cy.js",
       "beforeHooks": [],
       "afterHooks": [],
       "tests": [],
       "suites": [
         {
-          "uuid": "5e55af0d-1c44-4734-bf03-8ed3a7a6dac7",
-          "title": "Login Test - Page Object Model",
+          "uuid": "26b7cbd1-428f-4f83-aaf4-dea91b14a535",
+          "title": "Agent test",
           "fullFile": "",
           "file": "",
           "beforeHooks": [],
           "afterHooks": [],
           "tests": [
             {
-              "title": "should login successfully",
-              "fullTitle": "Login Test - Page Object Model should login successfully",
+              "title": "agent registration form",
+              "fullTitle": "Agent test agent registration form",
               "timedOut": null,
-              "duration": 7397,
+              "duration": 9110,
               "state": "passed",
               "speed": "medium",
               "pass": true,
               "fail": false,
               "pending": false,
-              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-videos-passed\",\n  \"value\": \"cypress\\\\e2e\\\\Login.cy.js\"\n}",
-              "code": "login.setUserName(this.loginData.username);\nlogin.setPassword(this.loginData.password);\nlogin.clickSubmit();\nlogin.verifyLogin();",
+              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-videos-passed\",\n  \"value\": \"cypress\\\\e2e\\\\Agent.cy.js\"\n}",
+              "code": "agent.clicksignup();\nagent.clickyes();\nagent.selectAgentType();\nagent.enterAgentName(Data.agentname);",
               "err": {},
-              "uuid": "67008498-32eb-4fa0-847d-b7384666e62a",
-              "parentUUID": "5e55af0d-1c44-4734-bf03-8ed3a7a6dac7",
+              "uuid": "0a20eb1f-27b4-417f-824b-c472556c2113",
+              "parentUUID": "26b7cbd1-428f-4f83-aaf4-dea91b14a535",
               "isHook": false,
               "skipped": false
             }
           ],
-          "suites": [
-            {
-              "uuid": "4bf13454-1f99-4dd7-9296-480166acfa39",
-              "title": "OrangeHRM Login Test using Custom Command",
-              "fullFile": "",
-              "file": "",
-              "beforeHooks": [],
-              "afterHooks": [],
-              "tests": [
-                {
-                  "title": "should login successfully using custom command",
-                  "fullTitle": "Login Test - Page Object Model OrangeHRM Login Test using Custom Command should login successfully using custom command",
-                  "timedOut": null,
-                  "duration": 6692,
-                  "state": "passed",
-                  "speed": "medium",
-                  "pass": true,
-                  "fail": false,
-                  "pending": false,
-                  "context": "{\n  \"title\": \"cypress-mochawesome-reporter-videos-passed\",\n  \"value\": \"cypress\\\\e2e\\\\Login.cy.js\"\n}",
-                  "code": "cy.login(loginData.username, loginData.password);",
-                  "err": {},
-                  "uuid": "7854604c-bd9b-4cfc-8553-217873f501f6",
-                  "parentUUID": "4bf13454-1f99-4dd7-9296-480166acfa39",
-                  "isHook": false,
-                  "skipped": false
-                }
-              ],
-              "suites": [],
-              "passes": [
-                "7854604c-bd9b-4cfc-8553-217873f501f6"
-              ],
-              "failures": [],
-              "pending": [],
-              "skipped": [],
-              "duration": 6692,
-              "root": false,
-              "rootEmpty": false,
-              "_timeout": 2000
-            }
-          ],
+          "suites": [],
           "passes": [
-            "67008498-32eb-4fa0-847d-b7384666e62a"
+            "0a20eb1f-27b4-417f-824b-c472556c2113"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 7397,
+          "duration": 9110,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
@@ -124,7 +84,7 @@
       "options": {
         "quiet": false,
         "reportFilename": "mochawesome",
-        "saveHtml": true,
+        "saveHtml": false,
         "saveJson": true,
         "consoleReporter": "spec",
         "useInlineDiffs": false,
@@ -136,11 +96,8 @@
       "options": {
         "reportDir": "cypress/reports",
         "overwrite": true,
-        "html": true,
-        "json": true,
-        "charts": true,
-        "embeddedScreenshots": true,
-        "inlineAssets": true
+        "html": false,
+        "json": true
       },
       "version": "6.2.0"
     }
