@@ -2,25 +2,46 @@ trigger:
   - main
 
 pool:
-  vmImage: 'windows-latest'   # kyunki aapka system Windows hai
+  vmImage: 'windows-latest'   # Windows agent
 
 steps:
+  # 1) Setup Node.js
   - task: NodeTool@0
     inputs:
-      versionSpec: '22.x'   # Node.js version (aapne local me v22 use kiya)
+      versionSpec: '22.x'
     displayName: 'Install Node.js'
 
-  - script: |
-      npm install
-    displayName: 'Install dependencies'
+  # 2) Cache node_modules
+  - task: Cache@2
+    inputs:
+      key: 'npm | "$(Agent.OS)" | package-lock.json'
+      restoreKeys: |
+        npm | "$(Agent.OS)"
+      path: $(Build.SourcesDirectory)/node_modules
+    displayName: 'Cache node_modules'
 
+  # 3) Cache Cypress binary
+  - task: Cache@2
+    inputs:
+      key: 'cypress | "$(Agent.OS)" | package-lock.json'
+      path: $(USERPROFILE)\AppData\Local\Cypress\Cache
+    displayName: 'Cache Cypress binary'
+
+  # 4) Install dependencies + Cypress binary
+  - script: |
+      npm ci
+      npx cypress install
+    displayName: 'Install dependencies and Cypress'
+
+  # 5) Run Cypress tests
   - script: |
       npx cypress run
     displayName: 'Run Cypress tests'
 
+  # 6) Publish Mochawesome HTML report as artifact
   - task: PublishBuildArtifacts@1
     inputs:
       PathtoPublish: 'cypress/reports'
       ArtifactName: 'cypress-report'
       publishLocation: 'Container'
-    displayName: 'Publish HTML Report'
+    displayName: 'Publish Cypress HTML Report'
