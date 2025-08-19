@@ -1,0 +1,42 @@
+trigger:
+  - main   # jab bhi main branch pe push hoga, pipeline chalegi
+
+pool:
+ vmImage: 'windows-latest'
+
+steps:
+  # Step 1: Checkout code
+  - task: Checkout@1
+    displayName: 'Checkout repository'
+
+  # Step 2: Setup Node.js
+  - task: UseNode@1
+    inputs:
+      versionSpec: '22.x'
+    displayName: 'Setup Node.js'
+
+  # Step 3: Install dependencies
+  - script: |
+      npm ci
+    displayName: 'Install dependencies'
+
+  # Step 4: Run Cypress tests with mochawesome reporter
+  - script: |
+      npx cypress run
+    displayName: 'Run Cypress Tests'
+
+  # Step 5: Publish mochawesome HTML report as pipeline artifact
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: 'cypress/reports'
+      ArtifactName: 'CypressReports'
+      publishLocation: 'Container'
+    displayName: 'Publish Test Reports'
+
+  # Step 6: Publish Cypress videos as artifact
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: 'cypress/videos'
+      ArtifactName: 'CypressVideos'
+      publishLocation: 'Container'
+    displayName: 'Publish Test Videos'
