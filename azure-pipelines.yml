@@ -70,8 +70,9 @@ steps:
       failOnEmpty: false
     displayName: 'Publish Mochawesome HTML Report'
     condition: always()
+    continueOnError: true
 
-  # 10) Publish screenshots
+  # 10) Publish screenshots (only exist when tests fail)
   - task: PublishBuildArtifacts@1
     inputs:
       PathtoPublish: 'cypress/screenshots'
@@ -80,8 +81,9 @@ steps:
       failOnEmpty: false
     displayName: 'Publish Screenshots'
     condition: always()
+    continueOnError: true
 
-  # 11) Publish videos
+  # 11) Publish videos (only exist if video recording is enabled)
   - task: PublishBuildArtifacts@1
     inputs:
       PathtoPublish: 'cypress/videos'
@@ -90,3 +92,4 @@ steps:
       failOnEmpty: false
     displayName: 'Publish Videos'
     condition: always()
+    continueOnError: true
