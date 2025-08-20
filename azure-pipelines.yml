@@ -38,10 +38,10 @@ steps:
   - script: npx cypress verify
     displayName: 'Verify Cypress installation'
 
-  # 6) Create reports directories
+  # 6) Create reports directories (Windows compatible)
   - script: |
-      mkdir -p cypress/reports/junit
-      mkdir -p cypress/reports/mochawesome
+      if not exist cypress\reports\junit mkdir cypress\reports\junit
+      if not exist cypress\reports\mochawesome mkdir cypress\reports\mochawesome
     displayName: 'Create report directories'
 
   # 7) Run Cypress tests
