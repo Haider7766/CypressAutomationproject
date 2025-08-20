@@ -2,13 +2,16 @@ trigger:
   - main
 
 pool:
-  vmImage: 'windows-latest'   # Windows agent
+  vmImage: 'windows-latest'
+
+variables:
+  CYPRESS_CACHE_FOLDER: $(Pipeline.Workspace)/.cypress
 
 steps:
   # 1) Setup Node.js
   - task: NodeTool@0
     inputs:
-      versionSpec: '22.x'
+      versionSpec: '18.x'
     displayName: 'Install Node.js'
 
   # 2) Cache node_modules
@@ -17,41 +20,70 @@ steps:
       key: 'npm | "$(Agent.OS)" | package-lock.json'
       restoreKeys: |
         npm | "$(Agent.OS)"
-      path: $(Build.SourcesDirectory)/node_modules
+      path: $(System.DefaultWorkingDirectory)/node_modules
     displayName: 'Cache node_modules'
 
   # 3) Cache Cypress binary
   - task: Cache@2
     inputs:
       key: 'cypress | "$(Agent.OS)" | package-lock.json'
-      path: $(USERPROFILE)\AppData\Local\Cypress\Cache
+      path: $(CYPRESS_CACHE_FOLDER)
     displayName: 'Cache Cypress binary'
 
-  # 4) Install dependencies + Cypress binary
-  - script: |
-      npm ci
-      npx cypress install
-    displayName: 'Install dependencies and Cypress'
+  # 4) Install dependencies
+  - script: npm ci
+    displayName: 'Install dependencies'
 
-  # 5) Run Cypress tests (will fail if tests fail)
+  # 5) Verify Cypress installation
+  - script: npx cypress verify
+    displayName: 'Verify Cypress installation'
+
+  # 6) Create reports directories
   - script: |
-      npx cypress run
+      mkdir -p cypress/reports/junit
+      mkdir -p cypress/reports/mochawesome
+    displayName: 'Create report directories'
+
+  # 7) Run Cypress tests
+  - script: npm run cy:run
     displayName: 'Run Cypress tests'
+    continueOnError: true
 
-  # 6) Always publish Cypress HTML Report as artifact
-  - task: PublishBuildArtifacts@1
+  # 8) Publish JUnit test results (for Azure DevOps test tab)
+  - task: PublishTestResults@2
     inputs:
-      PathtoPublish: 'cypress/reports'
-      ArtifactName: 'cypress-report'
-      publishLocation: 'Container'
-    displayName: 'Publish Cypress HTML Report (artifact)'
+      testResultsFormat: 'JUnit'
+      testResultsFiles: 'cypress/reports/junit/*.xml'
+      searchFolder: '$(System.DefaultWorkingDirectory)'
+      mergeTestResults: true
+      testRunTitle: 'Cypress Tests'
+      failTaskOnFailedTests: false
+    displayName: 'Publish Test Results'
     condition: always()
 
-  # 7) Always show Cypress HTML Report in pipeline UI tab
-  - task: PublishHtmlReport@1
+  # 9) Publish Mochawesome HTML report as artifact
+  - task: PublishBuildArtifacts@1
     inputs:
-      reportDir: 'cypress/reports'
-      reportTitle: 'Cypress Test Report'
-      reportName: 'Cypress Report'
-    displayName: 'Publish Cypress HTML Report (UI tab)'
+      PathtoPublish: 'cypress/reports/mochawesome'
+      ArtifactName: 'mochawesome-html-report'
+      publishLocation: 'Container'
+    displayName: 'Publish Mochawesome HTML Report'
+    condition: always()
+
+  # 10) Publish screenshots
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: 'cypress/screenshots'
+      ArtifactName: 'cypress-screenshots'
+      publishLocation: 'Container'
+    displayName: 'Publish Screenshots'
+    condition: always()
+
+  # 11) Publish videos
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: 'cypress/videos'
+      ArtifactName: 'cypress-videos'
+      publishLocation: 'Container'
+    displayName: 'Publish Videos'
     condition: always()

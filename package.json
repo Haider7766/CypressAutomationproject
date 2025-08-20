@@ -4,15 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-  "clean": "rimraf cypress/reports && rimraf cypress/videos",
-  "test:report": "npm run clean && npx cypress run"
-},
+    "clean": "rimraf cypress/reports && rimraf cypress/videos && rimraf cypress/screenshots",
+    "test:report": "npm run clean && npx cypress run",
+    "cy:run": "npx cypress run",
+    "cy:open": "npx cypress open"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "cypress": "^14.5.3",
     "cypress-mochawesome-reporter": "^4.0.0",
+    "cypress-multi-reporters": "^2.0.5",
     "mocha-junit-reporter": "^2.2.1",
     "mochawesome": "^7.1.3",
     "mochawesome-merge": "^5.0.0",
