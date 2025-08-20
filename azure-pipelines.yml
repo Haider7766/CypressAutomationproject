@@ -66,35 +66,4 @@ steps:
     displayName: 'Publish Test Results'
     condition: always()
 
-  # 9) Publish Mochawesome HTML report as artifact
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: 'cypress/reports/mochawesome'
-      ArtifactName: 'mochawesome-html-report'
-      publishLocation: 'Container'
-      failOnEmpty: false
-    displayName: 'Publish Mochawesome HTML Report'
-    condition: always()
-    continueOnError: true
-
-  # 10) Publish screenshots (only exist when tests fail)
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: 'cypress/screenshots'
-      ArtifactName: 'cypress-screenshots'
-      publishLocation: 'Container'
-      failOnEmpty: false
-    displayName: 'Publish Screenshots'
-    condition: always()
-    continueOnError: true
-
-  # 11) Publish videos (only exist if video recording is enabled)
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: 'cypress/videos'
-      ArtifactName: 'cypress-videos'
-      publishLocation: 'Container'
-      failOnEmpty: false
-    displayName: 'Publish Videos'
-    condition: always()
-    continueOnError: true
+ 
