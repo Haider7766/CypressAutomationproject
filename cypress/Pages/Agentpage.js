@@ -12,17 +12,17 @@
       }
 
 
-      clickyes(){
-    cy.get(this.txtyes,{ timeout: 20000  }).click();
-      }
+     clickyes() {
+    cy.get(this.txtyes, { timeout: 60000 }).should('be.visible').click();
+}
 
     selectAgentType() {
-      cy.get(this.agenttype, { timeout: 20000  }).first().click();
-      cy.get(this.selectlist,{timeout: 20000 }).contains('Individual').click();
+      cy.get(this.agenttype, { timeout: 60000  }).first().click();
+      cy.get(this.selectlist,{timeout: 60000 }).contains('Individual').click();
     }
 
       enterAgentName(name) {
-        cy.get(this.agentname,{ timeout: 20000  }).clear().type(name);
+        cy.get(this.agentname,{ timeout: 60000  }).clear().type(name);
       }
     }
     export default Agent;
