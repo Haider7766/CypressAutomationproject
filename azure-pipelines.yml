@@ -67,6 +67,7 @@ steps:
       PathtoPublish: 'cypress/reports/mochawesome'
       ArtifactName: 'mochawesome-html-report'
       publishLocation: 'Container'
+      failOnEmpty: false
     displayName: 'Publish Mochawesome HTML Report'
     condition: always()
 
@@ -76,6 +77,7 @@ steps:
       PathtoPublish: 'cypress/screenshots'
       ArtifactName: 'cypress-screenshots'
       publishLocation: 'Container'
+      failOnEmpty: false
     displayName: 'Publish Screenshots'
     condition: always()
 
@@ -85,5 +87,6 @@ steps:
       PathtoPublish: 'cypress/videos'
       ArtifactName: 'cypress-videos'
       publishLocation: 'Container'
+      failOnEmpty: false
     displayName: 'Publish Videos'
     condition: always()
