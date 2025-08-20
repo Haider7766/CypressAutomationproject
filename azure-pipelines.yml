@@ -1,5 +1,5 @@
-# File: azure-pipelines.yml (in your repo)
-# This is ready to be used as a template in QA Test Runner
+trigger:
+  - main
 
 pool:
   vmImage: 'windows-latest'
@@ -54,7 +54,7 @@ steps:
     displayName: 'Run Cypress tests'
     continueOnError: true
 
-  # 8) Publish JUnit test results (for Azure DevOps Test tab)
+  # 8) Publish JUnit test results (for Azure DevOps test tab)
   - task: PublishTestResults@2
     inputs:
       testResultsFormat: 'JUnit'
@@ -65,3 +65,5 @@ steps:
       failTaskOnFailedTests: false
     displayName: 'Publish Test Results'
     condition: always()
+
+ 
