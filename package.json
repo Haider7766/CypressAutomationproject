@@ -4,11 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "clean": "rimraf cypress/reports && rimraf cypress/videos && rimraf cypress/screenshots",
-    "test:report": "npm run clean && npx cypress run",
-    "cy:run": "npx cypress run",
-    "cy:open": "npx cypress open"
-  },
+  "clean": "rimraf cypress/reports && rimraf cypress/videos && rimraf cypress/screenshots",
+  "cy:run": "npm run clean && npx cypress run",
+  "cy:open": "npx cypress open"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
