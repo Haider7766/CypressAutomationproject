@@ -33,15 +33,25 @@ steps:
       npx cypress install
     displayName: 'Install dependencies and Cypress'
 
-  # 5) Run Cypress tests
+  # 5) Run Cypress tests (will fail if tests fail)
   - script: |
       npx cypress run
     displayName: 'Run Cypress tests'
 
-  # 6) Publish Mochawesome HTML report as artifact
+  # 6) Always publish Cypress HTML Report as artifact
   - task: PublishBuildArtifacts@1
     inputs:
       PathtoPublish: 'cypress/reports'
       ArtifactName: 'cypress-report'
       publishLocation: 'Container'
-    displayName: 'Publish Cypress HTML Report'
+    displayName: 'Publish Cypress HTML Report (artifact)'
+    condition: always()
+
+  # 7) Always show Cypress HTML Report in pipeline UI tab
+  - task: PublishHtmlReport@1
+    inputs:
+      reportDir: 'cypress/reports'
+      reportTitle: 'Cypress Test Report'
+      reportName: 'Cypress Report'
+    displayName: 'Publish Cypress HTML Report (UI tab)'
+    condition: always()
