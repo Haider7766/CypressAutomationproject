@@ -10,6 +10,7 @@ describe('Agent test', () => {
 
   beforeEach(() => {
     cy.visit('/account/register'); 
+    cy.get('body', { timeout: 60000 }).should('be.visible');
   });
 
   it('agent registration form', function () {

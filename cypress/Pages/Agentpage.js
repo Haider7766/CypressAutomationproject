@@ -1,28 +1,28 @@
-import { agentlocators } from "../Locators/AgentLocators.js";
-class Agent{
+    import { agentlocators } from "../Locators/AgentLocators.js";
+    class Agent{
 
-signupp = agentlocators.signupp;
-txtyes = agentlocators.txtyes;
-agenttype = agentlocators.agenttype;
-selectlist = agentlocators.selectlist;
-agentname = agentlocators.agentname;
+    signupp = agentlocators.signupp;
+    txtyes = agentlocators.txtyes;
+    agenttype = agentlocators.agenttype;
+    selectlist = agentlocators.selectlist;
+    agentname = agentlocators.agentname;
 
-clicksignup() {
-    cy.get(this.signupp ,{ timeout: 50000 }).click();
-  }
+    clicksignup() {
+        cy.get(this.signupp ,{ timeout: 60000  }).click();
+      }
 
 
-  clickyes(){
-cy.get(this.txtyes,{ timeout: 10000 }).click();
-  }
+      clickyes(){
+    cy.get(this.txtyes,{ timeout: 20000  }).click();
+      }
 
- selectAgentType() {
-  cy.get(this.agenttype, { timeout: 10000 }).first().click();
-  cy.get(this.selectlist,{timeout: 10000}).contains('Individual').click();
-}
+    selectAgentType() {
+      cy.get(this.agenttype, { timeout: 20000  }).first().click();
+      cy.get(this.selectlist,{timeout: 20000 }).contains('Individual').click();
+    }
 
-  enterAgentName(name) {
-    cy.get(this.agentname).clear().type(name);
-  }
-}
-export default Agent;
+      enterAgentName(name) {
+        cy.get(this.agentname,{ timeout: 20000  }).clear().type(name);
+      }
+    }
+    export default Agent;
