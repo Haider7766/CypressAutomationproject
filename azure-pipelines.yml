@@ -33,15 +33,13 @@ steps:
   condition: always()
 
 # 5b) Debug - find JSON reports in entire workspace
-- script: dir /s /b *.json
-  displayName: 'Find all JSON files in workspace'
+- script: npx mochawesome-merge cypress/reports/*.json > cypress/reports/mochawesome/merged-report.json
+  displayName: 'Merge Mochawesome JSON and Generate HTML'
   condition: always()
 
 # 6) Merge Mochawesome JSON & Generate HTML
-- script: |
-    npx mochawesome-merge cypress/reports/mochawesome/*.json > mochawesome.json
-    npx marge mochawesome.json -f report -o cypress/reports/mochawesome
-  displayName: 'Merge Mochawesome JSON and Generate HTML'
+- script: npx marge cypress/reports/mochawesome/merged-report.json --reportDir cypress/reports/mochawesome
+  displayName: 'Generate Mochawesome HTML Report
   condition: always()
 
 # 7) Publish Mochawesome Report
