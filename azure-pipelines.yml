@@ -1,133 +1,84 @@
 trigger:
-  - main
+- main
 
 pool:
   vmImage: 'windows-latest'
 
-variables:
-  CYPRESS_CACHE_FOLDER: $(Pipeline.Workspace)/.cypress
-
 steps:
-  # 1) Setup Node.js
-  - task: NodeTool@0
-    inputs:
-      versionSpec: '18.x'
-    displayName: 'Install Node.js'
+# 1) Install Node
+- task: NodeTool@0
+  inputs:
+    versionSpec: '18.x'
+  displayName: 'Install Node.js'
 
-  # 2) Cache node_modules
-  - task: Cache@2
-    inputs:
-      key: 'npm | "$(Agent.OS)" | package-lock.json'
-      restoreKeys: |
-        npm | "$(Agent.OS)"
-      path: $(System.DefaultWorkingDirectory)/node_modules
-    displayName: 'Cache node_modules'
+# 2) Install dependencies
+- script: npm ci
+  displayName: 'Install dependencies'
 
-  # 3) Cache Cypress binary
-  - task: Cache@2
-    inputs:
-      key: 'cypress | "$(Agent.OS)" | package-lock.json'
-      path: $(CYPRESS_CACHE_FOLDER)
-    displayName: 'Cache Cypress binary'
+# 3) Run Cypress tests with multi-reporter
+- script: npx cypress run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json
+  displayName: 'Run Cypress Tests'
 
-  # 4) Install dependencies
-  - script: npm ci
-    displayName: 'Install dependencies'
+# 4) Merge Mochawesome JSON & Generate HTML
+- script: |
+    npx mochawesome-merge cypress/reports/mochawesome/*.json > mochawesome.json
+    npx marge mochawesome.json -f report -o cypress/reports/mochawesome
+  displayName: 'Merge Mochawesome JSON and Generate HTML'
+  condition: always()
 
-  # 5) Install additional reporting packages
-  - script: |
-      npm install --save-dev mochawesome mochawesome-merge mochawesome-report-generator
-      npm install --save-dev cypress-mochawesome-reporter
-    displayName: 'Install Mochawesome packages'
-    continueOnError: true
+# 5) Ensure folders exist (prevent publish errors if empty)
+- script: |
+    if not exist cypress\reports\mochawesome mkdir cypress\reports\mochawesome
+    if not exist cypress\screenshots mkdir cypress\screenshots
+    if not exist cypress\videos mkdir cypress\videos
+    if not exist cypress\reports\junit mkdir cypress\reports\junit
+  displayName: 'Ensure report folders exist'
+  condition: always()
 
-  # 6) Verify Cypress installation
-  - script: npx cypress verify
-    displayName: 'Verify Cypress installation'
+# 6) Debug - list output files
+- script: |
+    dir cypress\reports\mochawesome
+    dir cypress\screenshots
+    dir cypress\videos
+    dir cypress\reports\junit
+  displayName: 'List Cypress output files'
+  condition: always()
 
-  # 7) Create reports directories (Windows compatible)
-  - script: |
-      if not exist cypress\reports\junit mkdir cypress\reports\junit
-      if not exist cypress\reports\mochawesome mkdir cypress\reports\mochawesome
-      if not exist cypress\reports\html mkdir cypress\reports\html
-      if not exist cypress\screenshots mkdir cypress\screenshots
-      if not exist cypress\videos mkdir cypress\videos
-    displayName: 'Create all report directories'
+# 7) Publish Mochawesome HTML Report
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'cypress/reports/mochawesome'
+    ArtifactName: 'mochawesome-html-report'
+    publishLocation: 'Container'
+    failOnEmpty: false
+  displayName: 'Publish Mochawesome HTML Report'
+  condition: always()
 
-  # 8) Run Cypress tests with enhanced reporting
-  - script: npm run test:ci
-    displayName: 'Run Cypress tests with enhanced reporting'
-    continueOnError: true
-    condition: succeededOrFailed()
-  # 9) Generate merged Mochawesome report
-  - script: |
-      npx mochawesome-merge cypress/reports/mochawesome/*.json > cypress/reports/mochawesome/merged-report.json
-      npx marge cypress/reports/mochawesome/merged-report.json --reportDir cypress/reports/html --inline --charts --reportPageTitle "Cypress Test Report" --reportFilename index.html
-    displayName: 'Generate Beautiful HTML Report'
-    condition: always()
-    continueOnError: true
+# 8) Publish Screenshots
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'cypress/screenshots'
+    ArtifactName: 'cypress-screenshots'
+    publishLocation: 'Container'
+    failOnEmpty: false
+  displayName: 'Publish Screenshots'
+  condition: always()
 
-  # 10) Publish JUnit test results (for Azure DevOps test tab)
-  - task: PublishTestResults@2
-    inputs:
-      testResultsFormat: 'JUnit'
-      testResultsFiles: 'cypress/reports/junit/*.xml'
-      searchFolder: '$(System.DefaultWorkingDirectory)'
-      mergeTestResults: true
-      testRunTitle: 'Cypress Tests'
-      failTaskOnFailedTests: false
-    displayName: 'Publish Test Results'
-    condition: always()
+# 9) Publish Videos
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'cypress/videos'
+    ArtifactName: 'cypress-videos'
+    publishLocation: 'Container'
+    failOnEmpty: false
+  displayName: 'Publish Videos'
+  condition: always()
 
-  # 11) Publish Beautiful HTML Report as artifact
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: 'cypress/reports/html'
-      ArtifactName: 'cypress-html-report'
-      publishLocation: 'Container'
-    displayName: 'Publish Beautiful HTML Report'
-    condition: always()
-
-  # 12) Publish Mochawesome JSON reports
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: 'cypress/reports/mochawesome'
-      ArtifactName: 'mochawesome-json-reports'
-      publishLocation: 'Container'
-    displayName: 'Publish Mochawesome JSON Reports'
-    condition: always()
-    continueOnError: true
-
-  # 13) Publish screenshots (if any test failures)
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: 'cypress/screenshots'
-      ArtifactName: 'cypress-screenshots'
-      publishLocation: 'Container'
-    displayName: 'Publish Screenshots'
-    condition: always()
-    continueOnError: true
-
-  # 14) Publish videos (if recorded)
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: 'cypress/videos'
-      ArtifactName: 'cypress-videos'
-      publishLocation: 'Container'
-    displayName: 'Publish Videos'
-    condition: always()
-    continueOnError: true
-
-  # 15) Create summary with links
-  - powershell: |
-      Write-Host "=== CYPRESS TEST REPORT SUMMARY ==="
-      Write-Host "Tests completed successfully"
-      Write-Host "Check 'cypress-html-report' artifact for detailed HTML report"
-      Write-Host "Check 'cypress-screenshots' artifact for any failure screenshots"
-      Write-Host "Check 'cypress-videos' artifact for test recordings"
-      Write-Host ""
-      Write-Host "Test Results Tab: Basic test results"
-      Write-Host "Artifacts Tab: Beautiful HTML reports and media files"
-    displayName: 'Report Summary'
-    condition: always()
-
+# 10) Publish JUnit Results (for Azure Test Tab)
+- task: PublishTestResults@2
+  inputs:
+    testResultsFiles: 'cypress/reports/junit/*.xml'
+    testRunTitle: 'Cypress Test Results'
+    mergeTestResults: true
+  displayName: 'Publish JUnit Results'
+  condition: always()
