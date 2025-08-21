@@ -39,7 +39,7 @@ steps:
 
 # 6) Merge Mochawesome JSON & Generate HTML
 - script: npx marge cypress/reports/mochawesome/merged-report.json --reportDir cypress/reports/mochawesome
-  displayName: 'Generate Mochawesome HTML Report
+  displayName: 'Generate Mochawesome HTML Report'
   condition: always()
 
 # 7) Publish Mochawesome Report
