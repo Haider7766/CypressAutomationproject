@@ -4,11 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-  "clean": "rimraf cypress/reports && rimraf cypress/videos && rimraf cypress/screenshots",
-  "cy:run": "npm run clean && npx cypress run",
-  "cy:open": "npx cypress open"
-},
-  "keywords": [],
+    "clean": "rimraf cypress/reports && rimraf cypress/videos && rimraf cypress/screenshots",
+    "cy:run": "npm run clean && npx cypress run",
+    "cy:run:report": "npm run clean && npx cypress run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json",
+    "cy:open": "npx cypress open",
+    "cy:run:headed": "npm run clean && npx cypress run --headed",
+    "report:merge": "mochawesome-merge cypress/reports/mochawesome/*.json > cypress/reports/mochawesome/merged-report.json",
+    "report:generate": "marge cypress/reports/mochawesome/merged-report.json --reportDir cypress/reports/html --inline --charts --reportPageTitle 'AMP Cypress Test Report' --reportFilename index.html",
+    "report:full": "npm run report:merge && npm run report:generate",
+    "test": "npm run cy:run:report && npm run report:full",
+    "test:ci": "npm run clean && npx cypress run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json"
+  },
+  "keywords": ["cypress", "automation", "testing", "e2e"],
   "author": "",
   "license": "ISC",
   "devDependencies": {

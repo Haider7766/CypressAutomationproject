@@ -34,27 +34,40 @@ steps:
   - script: npm ci
     displayName: 'Install dependencies'
 
-  # 5) Verify Cypress installation
+  # 5) Install additional reporting packages
+  - script: |
+      npm install --save-dev mochawesome mochawesome-merge mochawesome-report-generator
+      npm install --save-dev cypress-mochawesome-reporter
+    displayName: 'Install Mochawesome packages'
+    continueOnError: true
+
+  # 6) Verify Cypress installation
   - script: npx cypress verify
     displayName: 'Verify Cypress installation'
 
-  # 6) Create reports directories (Windows compatible)
+  # 7) Create reports directories (Windows compatible)
   - script: |
       if not exist cypress\reports\junit mkdir cypress\reports\junit
       if not exist cypress\reports\mochawesome mkdir cypress\reports\mochawesome
+      if not exist cypress\reports\html mkdir cypress\reports\html
       if not exist cypress\screenshots mkdir cypress\screenshots
       if not exist cypress\videos mkdir cypress\videos
-      echo "Success - No screenshots needed" > cypress\screenshots\success.txt
-      echo "Success - No videos needed" > cypress\videos\success.txt
-      echo "<html><body><h1>Tests Passed</h1></body></html>" > cypress\reports\mochawesome\index.html
-    displayName: 'Create all necessary directories with placeholders'
+    displayName: 'Create all report directories'
 
-  # 7) Run Cypress tests
-  - script: npm run cy:run
-    displayName: 'Run Cypress tests'
+  # 8) Run Cypress tests with enhanced reporting
+  - script: npm run test:ci
+    displayName: 'Run Cypress tests with enhanced reporting'
+    continueOnError: true
+    condition: succeededOrFailed()
+  # 9) Generate merged Mochawesome report
+  - script: |
+      npx mochawesome-merge cypress/reports/mochawesome/*.json > cypress/reports/mochawesome/merged-report.json
+      npx marge cypress/reports/mochawesome/merged-report.json --reportDir cypress/reports/html --inline --charts --reportPageTitle "Cypress Test Report" --reportFilename index.html
+    displayName: 'Generate Beautiful HTML Report'
+    condition: always()
     continueOnError: true
 
-  # 8) Publish JUnit test results (for Azure DevOps test tab)
+  # 10) Publish JUnit test results (for Azure DevOps test tab)
   - task: PublishTestResults@2
     inputs:
       testResultsFormat: 'JUnit'
@@ -65,3 +78,56 @@ steps:
       failTaskOnFailedTests: false
     displayName: 'Publish Test Results'
     condition: always()
+
+  # 11) Publish Beautiful HTML Report as artifact
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: 'cypress/reports/html'
+      ArtifactName: 'cypress-html-report'
+      publishLocation: 'Container'
+    displayName: 'Publish Beautiful HTML Report'
+    condition: always()
+
+  # 12) Publish Mochawesome JSON reports
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: 'cypress/reports/mochawesome'
+      ArtifactName: 'mochawesome-json-reports'
+      publishLocation: 'Container'
+    displayName: 'Publish Mochawesome JSON Reports'
+    condition: always()
+    continueOnError: true
+
+  # 13) Publish screenshots (if any test failures)
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: 'cypress/screenshots'
+      ArtifactName: 'cypress-screenshots'
+      publishLocation: 'Container'
+    displayName: 'Publish Screenshots'
+    condition: always()
+    continueOnError: true
+
+  # 14) Publish videos (if recorded)
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: 'cypress/videos'
+      ArtifactName: 'cypress-videos'
+      publishLocation: 'Container'
+    displayName: 'Publish Videos'
+    condition: always()
+    continueOnError: true
+
+  # 15) Create summary with links
+  - powershell: |
+      Write-Host "=== CYPRESS TEST REPORT SUMMARY ==="
+      Write-Host "Tests completed successfully"
+      Write-Host "Check 'cypress-html-report' artifact for detailed HTML report"
+      Write-Host "Check 'cypress-screenshots' artifact for any failure screenshots"
+      Write-Host "Check 'cypress-videos' artifact for test recordings"
+      Write-Host ""
+      Write-Host "Test Results Tab: Basic test results"
+      Write-Host "Artifacts Tab: Beautiful HTML reports and media files"
+    displayName: 'Report Summary'
+    condition: always()
+
