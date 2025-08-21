@@ -19,20 +19,27 @@ steps:
 - script: npx cypress run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json
   displayName: 'Run Cypress Tests'
 
-# 4) Ensure folders exist (so publish doesn’t fail if empty)
+# 4) Merge Mochawesome JSON & Generate HTML
 - script: |
-    mkdir -Force cypress\reports\mochawesome
-    mkdir -Force cypress\screenshots
-    mkdir -Force cypress\videos
+    npx mochawesome-merge cypress/reports/mochawesome/*.json > mochawesome.json
+    npx marge mochawesome.json -f report -o cypress/reports/mochawesome
+  displayName: 'Merge Mochawesome JSON and Generate HTML'
+  condition: always()
+
+# 5) Ensure folders exist (Windows PowerShell safe version)
+- powershell: |
+    New-Item -ItemType Directory -Force -Path "cypress/reports/mochawesome" | Out-Null
+    New-Item -ItemType Directory -Force -Path "cypress/screenshots" | Out-Null
+    New-Item -ItemType Directory -Force -Path "cypress/videos" | Out-Null
   displayName: 'Ensure report folders exist'
   condition: always()
 
-# 5) Debug - list output files
+# 6) Debug - list output files
 - script: dir cypress\reports\mochawesome && dir cypress\screenshots && dir cypress\videos
   displayName: 'List Cypress output files'
   condition: always()
 
-# 6) Publish Mochawesome Report (contains HTML already)
+# 7) Publish Mochawesome Report
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: 'cypress/reports/mochawesome'
@@ -42,7 +49,7 @@ steps:
   displayName: 'Publish Mochawesome HTML Report'
   condition: always()
 
-# 7) Publish Screenshots
+# 8) Publish Screenshots
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: 'cypress/screenshots'
@@ -52,7 +59,7 @@ steps:
   displayName: 'Publish Screenshots'
   condition: always()
 
-# 8) Publish Videos
+# 9) Publish Videos
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: 'cypress/videos'
@@ -62,7 +69,7 @@ steps:
   displayName: 'Publish Videos'
   condition: always()
 
-# 9) Publish JUnit Results (Azure Test Tab)
+# 10) Publish JUnit Results (Azure Test Tab)
 - task: PublishTestResults@2
   inputs:
     testResultsFiles: 'cypress/reports/junit/*.xml'
