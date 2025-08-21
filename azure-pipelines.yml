@@ -34,8 +34,8 @@ steps:
 
 # 6) Merge Mochawesome JSON & Generate HTML
 - script: |
-    npx mochawesome-merge cypress\reports\mochawesome\*.json > mochawesome.json
-    npx marge mochawesome.json -f report -o cypress\reports\mochawesome
+    npx mochawesome-merge cypress/reports/mochawesome/*.json > mochawesome.json
+    npx marge mochawesome.json -f report -o cypress/reports/mochawesome
   displayName: 'Merge Mochawesome JSON and Generate HTML'
   condition: always()
 
