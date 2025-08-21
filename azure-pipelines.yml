@@ -49,10 +49,14 @@ steps:
     displayName: 'Run Cypress tests'
     continueOnError: true
 
-  # 7.1) Merge mochawesome JSON + generate HTML
+   # 7.1) Merge mochawesome JSON + generate HTML
   - script: |
-      npx mochawesome-merge cypress/reports/mochawesome/*.json > cypress/reports/mochawesome/merged-report.json
-      npx marge cypress/reports/mochawesome/merged-report.json -f index -o cypress/reports/mochawesome
+      if exist cypress\reports\mochawesome\*.json (
+        npx mochawesome-merge cypress\reports\mochawesome\*.json > cypress\reports\mochawesome\merged-report.json
+        npx marge cypress\reports\mochawesome\merged-report.json -f index -o cypress\reports\mochawesome
+      ) else (
+        echo "⚠️ No Mochawesome JSON files found, skipping merge."
+      )
     displayName: 'Merge Mochawesome JSON and Generate HTML'
     condition: always()
 
