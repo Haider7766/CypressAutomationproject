@@ -23,8 +23,8 @@ steps:
   displayName: 'Ensure report folders exist'
   condition: always()
 
-# 4) Run Cypress tests (reporter already set in cypress.config.js)
-- script: npx cypress run --reporter-options "configFile=reporter-config.json"
+# 4) Run Cypress tests (force reporter usage)
+- script: npx cypress run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json
   displayName: 'Run Cypress Tests'
 
 # 5) Debug - list output files
@@ -39,7 +39,7 @@ steps:
 
 # 6) Merge Mochawesome JSON & Generate HTML
 - script: |
-    npx mochawesome-merge "cypress/reports/mochawesome/*.json" > mochawesome.json
+    npx mochawesome-merge cypress/reports/mochawesome/*.json > mochawesome.json
     npx marge mochawesome.json -f report -o cypress/reports/mochawesome
   displayName: 'Merge Mochawesome JSON and Generate HTML'
   condition: always()
