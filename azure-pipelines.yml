@@ -15,36 +15,24 @@ steps:
 - script: npm ci
   displayName: 'Install dependencies'
 
-# 3) Run Cypress tests with multi-reporter
+# 3) Run Cypress tests with reporter
 - script: npx cypress run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json
   displayName: 'Run Cypress Tests'
 
-# 4) Merge Mochawesome JSON & Generate HTML
+# 4) Ensure folders exist (so publish doesn’t fail if empty)
 - script: |
-    npx mochawesome-merge cypress/reports/mochawesome/*.json > mochawesome.json
-    npx marge mochawesome.json -f report -o cypress/reports/mochawesome
-  displayName: 'Merge Mochawesome JSON and Generate HTML'
-  condition: always()
-
-# 5) Ensure folders exist (prevent publish errors if empty)
-- script: |
-    if not exist cypress\reports\mochawesome mkdir cypress\reports\mochawesome
-    if not exist cypress\screenshots mkdir cypress\screenshots
-    if not exist cypress\videos mkdir cypress\videos
-    if not exist cypress\reports\junit mkdir cypress\reports\junit
+    mkdir -Force cypress\reports\mochawesome
+    mkdir -Force cypress\screenshots
+    mkdir -Force cypress\videos
   displayName: 'Ensure report folders exist'
   condition: always()
 
-# 6) Debug - list output files
-- script: |
-    dir cypress\reports\mochawesome
-    dir cypress\screenshots
-    dir cypress\videos
-    dir cypress\reports\junit
+# 5) Debug - list output files
+- script: dir cypress\reports\mochawesome && dir cypress\screenshots && dir cypress\videos
   displayName: 'List Cypress output files'
   condition: always()
 
-# 7) Publish Mochawesome HTML Report
+# 6) Publish Mochawesome Report (contains HTML already)
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: 'cypress/reports/mochawesome'
@@ -54,7 +42,7 @@ steps:
   displayName: 'Publish Mochawesome HTML Report'
   condition: always()
 
-# 8) Publish Screenshots
+# 7) Publish Screenshots
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: 'cypress/screenshots'
@@ -64,7 +52,7 @@ steps:
   displayName: 'Publish Screenshots'
   condition: always()
 
-# 9) Publish Videos
+# 8) Publish Videos
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: 'cypress/videos'
@@ -74,11 +62,10 @@ steps:
   displayName: 'Publish Videos'
   condition: always()
 
-# 10) Publish JUnit Results (for Azure Test Tab)
+# 9) Publish JUnit Results (Azure Test Tab)
 - task: PublishTestResults@2
   inputs:
     testResultsFiles: 'cypress/reports/junit/*.xml'
     testRunTitle: 'Cypress Test Results'
     mergeTestResults: true
-  displayName: 'Publish JUnit Results'
   condition: always()
