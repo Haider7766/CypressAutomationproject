@@ -32,6 +32,11 @@ steps:
   displayName: 'List Cypress output files'
   condition: always()
 
+# 5b) Debug - find JSON reports in entire workspace
+- script: dir /s /b *.json
+  displayName: 'Find all JSON files in workspace'
+  condition: always()
+
 # 6) Merge Mochawesome JSON & Generate HTML
 - script: |
     npx mochawesome-merge cypress/reports/mochawesome/*.json > mochawesome.json
