@@ -37,19 +37,103 @@ steps:
   displayName: 'Merge Mochawesome JSON and Generate HTML'
   condition: always()
 
-# 6) Merge Mochawesome JSON & Generate HTML
-- script: npx marge cypress/reports/mochawesome/merged-report.json --reportDir cypress/reports/mochawesome
-  displayName: 'Generate Mochawesome HTML Report'
+# 6) Generate HTML with inline assets (FIXED!)
+- script: npx marge cypress/reports/mochawesome/merged-report.json --reportDir cypress/reports/mochawesome --inline
+  displayName: 'Generate Mochawesome HTML Report with Inline Assets'
   condition: always()
 
-# 7) Publish Mochawesome Report
+# 6b) Debug - Check generated HTML and assets
+- powershell: |
+    Write-Host "=== Generated HTML Files ==="
+    Get-ChildItem -Path "cypress/reports/mochawesome" -Recurse -Include "*.html"
+    
+    Write-Host "`n=== Generated CSS Files ==="
+    Get-ChildItem -Path "cypress/reports/mochawesome" -Recurse -Include "*.css"
+    
+    Write-Host "`n=== Generated JS Files ==="
+    Get-ChildItem -Path "cypress/reports/mochawesome" -Recurse -Include "*.js"
+    
+    Write-Host "`n=== All Files in Report Directory ==="
+    Get-ChildItem -Path "cypress/reports/mochawesome" -Recurse
+    
+    Write-Host "`n=== HTML File Size ==="
+    $htmlFile = Get-ChildItem -Path "cypress/reports/mochawesome" -Include "*.html" -Recurse | Select-Object -First 1
+    if ($htmlFile) {
+        Write-Host "File: $($htmlFile.FullName)"
+        Write-Host "Size: $($htmlFile.Length) bytes"
+        
+        # Check if HTML contains inline CSS/JS
+        $content = Get-Content $htmlFile.FullName -Raw
+        if ($content -match '<style>') {
+            Write-Host "Inline CSS found"
+        } else {
+            Write-Host "No inline CSS found"
+        }
+        
+        if ($content -match '<script>') {
+            Write-Host "Inline JS found"
+        } else {
+            Write-Host "No inline JS found"
+        }
+        
+        # Check for external references
+        if ($content -match 'href="[^"]*\.css') {
+            Write-Host "External CSS references found"
+        }
+        if ($content -match 'src="[^"]*\.js') {
+            Write-Host "External JS references found"
+        }
+    }
+  displayName: 'Debug - Check HTML Report Generation'
+  condition: always()
+
+# 6c) Alternative: Create self-contained HTML if inline doesn't work
+- powershell: |
+    $reportDir = "cypress/reports/mochawesome"
+    $htmlFiles = Get-ChildItem -Path $reportDir -Include "*.html" -Recurse
+    
+    foreach ($htmlFile in $htmlFiles) {
+        Write-Host "Processing: $($htmlFile.Name)"
+        $content = Get-Content $htmlFile.FullName -Raw
+        
+        # Check if we need to inline assets
+        if ($content -match 'href="app\.css"') {
+            $cssFile = Join-Path $reportDir "app.css"
+            if (Test-Path $cssFile) {
+                $css = Get-Content $cssFile -Raw
+                $content = $content -replace '<link[^>]*app\.css[^>]*>', "<style>$css</style>"
+                Write-Host " Inlined CSS"
+            } else {
+                Write-Host " CSS file not found: $cssFile"
+            }
+        }
+        
+        if ($content -match 'src="app\.js"') {
+            $jsFile = Join-Path $reportDir "app.js"
+            if (Test-Path $jsFile) {
+                $js = Get-Content $jsFile -Raw
+                $content = $content -replace '<script[^>]*app\.js[^>]*></script>', "<script>$js</script>"
+                Write-Host " Inlined JS"
+            } else {
+                Write-Host " JS file not found: $jsFile"
+            }
+        }
+        
+        # Save the modified HTML
+        $content | Out-File -FilePath $htmlFile.FullName -Encoding UTF8
+        Write-Host "Updated HTML file"
+    }
+  displayName: 'Inline CSS/JS into HTML (Fallback)'
+  condition: always()
+
+# 7) Publish Complete Mochawesome Report (with all assets)
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: 'cypress/reports/mochawesome'
     ArtifactName: 'mochawesome-html-report'
     publishLocation: 'Container'
     failOnEmpty: false
-  displayName: 'Publish Mochawesome HTML Report'
+  displayName: 'Publish Complete Mochawesome HTML Report'
   condition: always()
 
 # 8) Publish Screenshots
