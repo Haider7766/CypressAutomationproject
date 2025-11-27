@@ -15,7 +15,12 @@
     "test": "npm run cy:run:report && npm run report:full",
     "test:ci": "npm run clean && npx cypress run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json"
   },
-  "keywords": ["cypress", "automation", "testing", "e2e"],
+  "keywords": [
+    "cypress",
+    "automation",
+    "testing",
+    "e2e"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
@@ -27,5 +32,10 @@
     "mochawesome-merge": "^5.0.0",
     "mochawesome-report-generator": "^6.2.0",
     "rimraf": "^5.0.10"
+  },
+  "dependencies": {
+    "imap-simple": "^5.1.0",
+    "mailparser": "^3.9.0",
+    "nodemailer": "^7.0.10"
   }
 }

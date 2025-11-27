@@ -23,15 +23,15 @@ module.exports = defineConfig({
   responseTimeout: 10000,
 
   e2e: {
-    baseUrl: 'https://ampdev.sigmaprocess.net/account/register',
-
+     baseUrl: 'https://demo.artestri.com:8443/artestri-landing/',
+      chromeWebSecurity: false,
     supportFile: 'cypress/support/e2e.js', //  is file me mochawesome/register hoga
     specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
 
     testIsolation: true,
     retries: {
-      runMode: 1,   // Retry once in CI
-      openMode: 0   // No retry locally
+      runMode: 1,   //  
+      openMode: 0   // Netry once in CIo retry locally
     },
 
     setupNodeEvents(on, config) {
