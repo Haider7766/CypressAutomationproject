@@ -9,7 +9,7 @@ Cypress.Commands.add("createUserAndFetchOtp", () => {
 
   cy.log("Creating user: " + email);
 
-  // STEP 1: CREATE USER
+  // : CREATE USER
   return cy.request({
     method: "POST",
     url: "https://artestri-qa-api.neocorebank.com:8443/api/v1/User/CreateAsync",
