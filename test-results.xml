@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="98.661" tests="3" failures="0">
+  <testsuite name="Root Suite" timestamp="2025-11-27T11:22:21" tests="0" file="cypress\e2e\Onboardingprofiles.cy.js" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Agency Signup" timestamp="2025-11-27T11:22:21" tests="1" time="46.671" failures="0">
+    <testcase name="Agency Signup Agency should verify OTP automatically" time="46.606" classname="Agency should verify OTP automatically">
+    </testcase>
+  </testsuite>
+  <testsuite name="Agency Signup" timestamp="2025-11-27T11:23:08" tests="1" time="28.021" failures="0">
+    <testcase name="Agency Signup Brand should verify OTP automatically" time="27.950" classname="Brand should verify OTP automatically">
+    </testcase>
+  </testsuite>
+  <testsuite name="Talent Signup" timestamp="2025-11-27T11:23:36" tests="1" time="23.966" failures="0">
+    <testcase name="Talent Signup Talent should verify OTP automatically" time="23.887" classname="Talent should verify OTP automatically">
+    </testcase>
+  </testsuite>
+</testsuites>

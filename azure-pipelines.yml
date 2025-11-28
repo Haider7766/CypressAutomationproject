@@ -107,7 +107,7 @@ steps:
                 Write-Host " CSS file not found: $cssFile"
             }
         }
-        
+
         if ($content -match 'src="app\.js"') {
             $jsFile = Join-Path $reportDir "app.js"
             if (Test-Path $jsFile) {

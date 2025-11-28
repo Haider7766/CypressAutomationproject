@@ -1,6 +1,6 @@
 import BrandProfile from '../Pages/Brandpage.js';
 const BrandOnboarding = new BrandProfile();
-describe('Agency Signup', () => {
+describe('Brand Signup', () => {
   let Data3; 
 
   before(() => {
