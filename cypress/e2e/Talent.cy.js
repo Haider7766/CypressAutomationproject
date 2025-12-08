@@ -2,11 +2,10 @@ import TalentProfile from '../Pages/Talentpage.js';
 const talentOnboarding = new TalentProfile();
 
 describe('Talent Signup', () => {
-  let Data1; // declare variable here so it's accessible in all hooks and tests
-
+  let Data1; 
   before(() => {
     cy.fixture('Talentdata').then((data) => {
-      Data1 = data; // assign fixture data
+      Data1 = data; 
     });
   });
 
