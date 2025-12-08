@@ -33,6 +33,7 @@ Cypress.Commands.add("createUserAndFetchOtp", () => {
         method: "GET",
         url: "https://demo-ids-client-api.croeminc.com:8443/api/Users/GenerateEmailConfirmationCode",
         qs: { email },
+        timeout: 30000,
         headers: {
           Accept: "application/json",
           "X-Tenant": "Artestri",
