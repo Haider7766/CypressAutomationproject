@@ -3,6 +3,8 @@ trigger:
     include:
       - main
       - dev
+      - dev_qa
+      - master
 
 pool:
   vmImage: 'windows-latest'
