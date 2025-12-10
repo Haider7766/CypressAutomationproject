@@ -8,7 +8,9 @@ const Talent = {
    occupation: "#occupation-input",
    occupationcontin: "div[class='tab-pane active'] button:nth-child(2)",
    termcndcheckbox: "#termsCheck",
-   confirmbtn: "div[class='tab-pane active'] button:nth-child(2)"
+   confirmbtn: "div[class='tab-pane active'] button:nth-child(2)",
+   uploadprofile: ".rounded-circle-custom",
+   fileInput: "input[type='file']"
 
 
 };

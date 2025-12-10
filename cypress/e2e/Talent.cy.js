@@ -18,6 +18,7 @@ describe('Talent Signup', () => {
     cy.verifyOtpAutomatically();
     talentOnboarding.clickTalent();
     talentOnboarding.clickContinuebtn();
+    talentOnboarding.uploadProfileImage();
     talentOnboarding.enterfname(Data1.firstname); 
     talentOnboarding.enterlname(Data1.lstname);
     talentOnboarding.clickexperties();

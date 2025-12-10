@@ -11,6 +11,8 @@ class TalentProfile {
   btncontinPortfolio = Talent.occupationcontin
   termandcodition = Talent.termcndcheckbox
   confimbutton = Talent.confirmbtn
+  profilepic =Talent.uploadprofile
+  profileinputbtn = Talent.fileInput
 
   clickTalent() {
     cy.get(this.lookingTalent, { timeout: 40000 })
@@ -23,6 +25,14 @@ class TalentProfile {
       .should('be.visible')
       .click();
   }
+
+  uploadProfileImage(){
+
+cy.get(this.profileinputbtn, { timeout: 40000 })
+    .should('exist') // not visible, just exists
+    .selectFile("cypress/fixtures/profile.jpeg", { force: true });
+
+}
 
    enterfname(fname) {
     cy.get(this.firstname, { timeout: 40000 })
