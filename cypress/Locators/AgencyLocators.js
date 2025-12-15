@@ -9,7 +9,9 @@ const Agency = {
    invitemember: ":nth-child(2) > .custom-input",
    mailctnbtn: ".tab-pane.active > .h-100 > .p-4 > .flex-column > .onboarding-continue-btn",
    Agencytermcndcheckbox: "#termsCheck",
-   Agencyconfirmbtn: "div[class='tab-pane active'] button:nth-child(2)"
+   Agencyconfirmbtn: "div[class='tab-pane active'] button:nth-child(2)",
+   fileInputagency: "input[type='file']"
+
   
 }
 

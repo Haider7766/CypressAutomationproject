@@ -10,7 +10,8 @@ const Brand = {
    noOfevent: "#noOfAnnualEventHeld-input",
    eventcontbtn: "div[class='tab-pane active'] button:nth-child(2)",
    Brandcheckbox: "#termsCheck",
-   Brandconfirmbtn: "div[class='tab-pane active'] button:nth-child(2)"
+   Brandconfirmbtn: "div[class='tab-pane active'] button:nth-child(2)",
+   fileInputbrnd: "input[type='file']"
   
 }
 

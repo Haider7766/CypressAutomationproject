@@ -7,15 +7,12 @@ describe('Talent Signup', () => {
     cy.fixture('Talentdata').then((data) => {
       Data1 = data; 
     });
-  });
-
-  beforeEach(() => { 
     cy.createUserAndFetchOtp();
     cy.visit('/');
+    cy.verifyOtpAutomatically();
   });
 
   it('Talent should verify OTP automatically', () => {
-    cy.verifyOtpAutomatically();
     talentOnboarding.clickTalent();
     talentOnboarding.clickContinuebtn();
     talentOnboarding.uploadProfileImage();
@@ -28,5 +25,8 @@ describe('Talent Signup', () => {
     talentOnboarding.clicktermconditionbox();
     talentOnboarding.clickconfirmationbtn();
 
+  });
+   it('Verified Talent user should login successfully', () => {
+    cy.loginVerifiedUser();
   });
 });

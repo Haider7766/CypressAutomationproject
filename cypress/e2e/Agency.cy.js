@@ -7,17 +7,16 @@ describe('Agency Signup', () => {
     cy.fixture('Agencydata').then((data) => {
       Data2 = data; 
     });
-  });
-
-  beforeEach(() => {
     cy.createUserAndFetchOtp();
     cy.visit('/');
+    cy.verifyOtpAutomatically();
+
   });
 
   it('Agency should verify OTP automatically', () => {
-    cy.verifyOtpAutomatically();
     AgencyOnboarding.clickAgencyTab();
     AgencyOnboarding.clickAgencyctnbtn();
+    AgencyOnboarding.uploadProfileImageagncy();
     AgencyOnboarding.Enterfirstname(Data2.FirstName);
     AgencyOnboarding.Enterlastname(Data2.Lastname);
     AgencyOnboarding.Entercompanyname(Data2.AgencyName);
@@ -26,11 +25,9 @@ describe('Agency Signup', () => {
     AgencyOnboarding.entermail1(Data2.invitelink1);
     AgencyOnboarding.clickenvitecontinuebtn();
     AgencyOnboarding.cliccheckboxtermagency();
-    AgencyOnboarding.clicagencyconfirmbtn();
-
-
-
-
-     
+    AgencyOnboarding.clicagencyconfirmbtn(); 
+  });
+   it('Verified Agency user should login successfully', () => {
+    cy.loginVerifiedUser();
   });
 });

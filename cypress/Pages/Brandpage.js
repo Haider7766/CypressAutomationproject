@@ -12,6 +12,7 @@ enterevent = Brand.noOfevent;
 clickventcontinuebtn =Brand.eventcontbtn;
 clickbrandcheckbox = Brand.Brandcheckbox;
 clicklbrandconfrmbtn = Brand.Brandconfirmbtn;
+fileinputbrndbtn= Brand.fileInputbrnd;
 
   Clickbrand(){
 cy.get(this.clickbrand, { timeout: 40000 })
@@ -24,6 +25,14 @@ Clickcontinuebtn(){
 cy.get(this.clickbrancontinuebtn, { timeout: 40000 })
       .should('be.visible')
       .click();
+}
+
+uploadProfileImagebrnd(){
+
+cy.get(this.fileinputbrndbtn, { timeout: 40000 })
+    .should('exist') 
+    .selectFile("cypress/fixtures/profile.jpeg", { force: true });
+
 }
 
 Enterbrandfirstname(brandfname){
@@ -73,7 +82,7 @@ cy.get(this.enterannualbudget, {timeout: 40444})
 }
 
 EnterEvent(event){
-cy.get(this.enterevent, {timeout: 40444})
+cy.get(this.enterevent, {timeout: 40444}) 
     .should('be.visible')
     .clear()
     .type(event);

@@ -29,7 +29,7 @@ class TalentProfile {
   uploadProfileImage(){
 
 cy.get(this.profileinputbtn, { timeout: 40000 })
-    .should('exist') // not visible, just exists
+    .should('exist') 
     .selectFile("cypress/fixtures/profile.jpeg", { force: true });
 
 }

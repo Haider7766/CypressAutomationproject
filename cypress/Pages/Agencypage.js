@@ -11,6 +11,7 @@ class AgencyProfile {
   invitecontinuebutton = Agency.mailctnbtn;
   termandcontitioncheckbox = Agency.Agencytermcndcheckbox;
   agencyconfirmationbtn = Agency.Agencyconfirmbtn;
+  agencyprofilebtn = Agency.fileInputagency;
 
 
   
@@ -25,6 +26,14 @@ class AgencyProfile {
       .should('be.visible')
       .click();
   }
+uploadProfileImageagncy(){
+
+cy.get(this.agencyprofilebtn, { timeout: 40000 })
+    .should('exist') 
+    .selectFile("cypress/fixtures/profile.jpeg", { force: true });
+
+}
+
 
 Enterfirstname(etfirstname){
  cy.get(this.enterfirstname, { timeout: 40000 })
