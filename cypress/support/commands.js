@@ -87,7 +87,6 @@ Cypress.Commands.add("verifyOtpAutomatically", () => {
 });
 
 
-//  LOGIN AFTER ONBOARDING
 Cypress.Commands.add("loginVerifiedUser", () => {
   const login = new Login();
 
