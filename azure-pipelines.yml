@@ -1,54 +1,101 @@
 trigger:
   branches:
     include:
-      - '*'   # Run Cypress for all branches
+      - '*'   # Run Cypress on all branches
 
-stages:
-- stage: RunCypress
-  displayName: "Cypress Test Stage"
-  jobs:
-  - job: CypressJob
-    displayName: "Run Cypress Tests"
-    pool:
-      vmImage: 'windows-latest'
-    steps:
-    - task: NodeTool@0
-      inputs:
-        versionSpec: '18.x'
-      displayName: 'Install Node.js'
+pool:
+  vmImage: 'windows-latest'
 
-    - task: CmdLine@2
-      displayName: 'Install dependencies'
-      inputs:
-        script: npm ci
+steps:
+# 1) Install Node
+- task: NodeTool@0
+  inputs:
+    versionSpec: '18.x'
+  displayName: 'Install Node.js'
 
-    - task: PowerShell@2
-      displayName: 'Ensure report folders exist'
-      condition: always()
-      inputs:
-        targetType: inline
-        script: |
-          New-Item -ItemType Directory -Force -Path "cypress/reports/mochawesome" | Out-Null
-          New-Item -ItemType Directory -Force -Path "cypress/screenshots" | Out-Null
-          New-Item -ItemType Directory -Force -Path "cypress/videos" | Out-Null
+# 2) Install dependencies
+- script: npm ci
+  displayName: 'Install dependencies'
 
-    - task: CmdLine@2
-      displayName: 'Run Cypress Tests'
-      inputs:
-        script: npx cypress run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json
+# 3) Ensure folders exist
+- powershell: |
+    New-Item -ItemType Directory -Force -Path "cypress/reports/mochawesome" | Out-Null
+    New-Item -ItemType Directory -Force -Path "cypress/screenshots" | Out-Null
+    New-Item -ItemType Directory -Force -Path "cypress/videos" | Out-Null
+  displayName: 'Ensure report folders exist'
+  condition: always()
 
-    - task: CmdLine@2
-      displayName: 'Merge Mochawesome JSON and Generate HTML'
-      condition: always()
-      inputs:
-        script: |
-          npx mochawesome-merge cypress/reports/*.json > cypress/reports/mochawesome/merged-report.json
-          npx marge cypress/reports/mochawesome/merged-report.json --reportDir cypress/reports/mochawesome --inline
+# 4) Run Cypress tests
+- script: npx cypress run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json
+  displayName: 'Run Cypress Tests'
 
-    - task: PublishBuildArtifacts@1
-      displayName: 'Publish Mochawesome Reports'
-      condition: always()
-      inputs:
-        PathtoPublish: 'cypress/reports/mochawesome'
-        ArtifactName: 'mochawesome-html-report'
-        publishLocation: 'Container'
+# 5) Merge Mochawesome JSON
+- script: npx mochawesome-merge cypress/reports/*.json > cypress/reports/mochawesome/merged-report.json
+  displayName: 'Merge Mochawesome JSON'
+  condition: always()
+
+# 6) Generate HTML report
+- script: npx marge cypress/reports/mochawesome/merged-report.json --reportDir cypress/reports/mochawesome --inline
+  displayName: 'Generate Mochawesome HTML Report'
+  condition: always()
+
+# 7) Inline CSS/JS fallback
+- powershell: |
+    $reportDir = "cypress/reports/mochawesome"
+    $htmlFiles = Get-ChildItem -Path $reportDir -Include "*.html" -Recurse
+    foreach ($htmlFile in $htmlFiles) {
+        $content = Get-Content $htmlFile.FullName -Raw
+        if ($content -match 'href="app\.css"') {
+            $cssFile = Join-Path $reportDir "app.css"
+            if (Test-Path $cssFile) {
+                $css = Get-Content $cssFile -Raw
+                $content = $content -replace '<link[^>]*app\.css[^>]*>', "<style>$css</style>"
+            }
+        }
+        if ($content -match 'src="app\.js"') {
+            $jsFile = Join-Path $reportDir "app.js"
+            if (Test-Path $jsFile) {
+                $js = Get-Content $jsFile -Raw
+                $content = $content -replace '<script[^>]*app\.js[^>]*></script>', "<script>$js</script>"
+            }
+        }
+        $content | Out-File -FilePath $htmlFile.FullName -Encoding UTF8
+    }
+  displayName: 'Inline CSS/JS into HTML'
+  condition: always()
+
+# 8) Publish reports, screenshots, videos
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'cypress/reports/mochawesome'
+    ArtifactName: 'mochawesome-html-report'
+    publishLocation: 'Container'
+    failOnEmpty: false
+  displayName: 'Publish Mochawesome HTML Report'
+  condition: always()
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'cypress/screenshots'
+    ArtifactName: 'cypress-screenshots'
+    publishLocation: 'Container'
+    failOnEmpty: false
+  displayName: 'Publish Screenshots'
+  condition: always()
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'cypress/videos'
+    ArtifactName: 'cypress-videos'
+    publishLocation: 'Container'
+    failOnEmpty: false
+  displayName: 'Publish Videos'
+  condition: always()
+
+# 9) Publish JUnit test results
+- task: PublishTestResults@2
+  inputs:
+    testResultsFiles: 'cypress/reports/junit/*.xml'
+    testRunTitle: 'Cypress Test Results'
+    mergeTestResults: true
+  condition: always()
