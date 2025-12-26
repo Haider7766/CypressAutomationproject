@@ -13,8 +13,8 @@ describe('Agency Signup', () => {
 
   });
 
-  it('Agency should verify OTP automatically', () => {
-    AgencyOnboarding.clickAgencyTab();
+ it('Agency should verify OTP automatically', () => {
+    AgencyOnboarding.clickAgencyTab(); 
     AgencyOnboarding.clickAgencyctnbtn();
     AgencyOnboarding.uploadProfileImageagncy();
     AgencyOnboarding.Enterfirstname(Data2.FirstName);
@@ -29,5 +29,8 @@ describe('Agency Signup', () => {
   });
    it('Verified Agency user should login successfully', () => {
     cy.loginVerifiedUser();
+    cy.log(' Agency account holder (Agent) logged in successfully')
   });
+  
 });
+ 

@@ -11,7 +11,7 @@ const Agency = {
    Agencytermcndcheckbox: "#termsCheck",
    Agencyconfirmbtn: "div[class='tab-pane active'] button:nth-child(2)",
    fileInputagency: "input[type='file']"
-
+//.justify-content-end > .navbar-nav > :nth-child(2) > .btn
   
 }
 

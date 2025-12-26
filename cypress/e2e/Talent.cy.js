@@ -28,5 +28,7 @@ describe('Talent Signup', () => {
   });
    it('Verified Talent user should login successfully', () => {
     cy.loginVerifiedUser();
+    cy.log(' Talent account holder (Agent) logged in successfully')
   });
+  
 });

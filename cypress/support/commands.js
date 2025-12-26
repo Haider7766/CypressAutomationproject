@@ -1,4 +1,5 @@
 import Login from '../Pages/LoginPage';
+
 const DEFAULT_PHONE = "15444645656";
 
 Cypress.Commands.add("createUserAndFetchOtp", () => {
@@ -35,7 +36,7 @@ Cypress.Commands.add("createUserAndFetchOtp", () => {
         headers: {
           Accept: "application/json",
           "X-Tenant": "Artestri",
-          Authorization: "Bearer eyJhbGciOiJSU0EtT0FFUCIsImVuYyI6IkEyNTZDQkMtSFM1MTIiLCJraWQiOiJQWFJJSERWMlJWX0VGUzVFNEpZT1Y4NDk3Sk5XWC1OSkVZTFFVTVNVIiwidHlwIjoiYXQrand0IiwiY3R5IjoiSldUIn0.gas5iTGastm9bG7-s0HER5Rws5ksqIhNtt8lwe1RXtMLBebqlHDzMWf0QLIOUkFXnR_PR4x7EhbWBNQqcgbXrabqwP3KF6IJWHoRXvZJNyzPqj4JoMZdNnFfRZvoIsp508d9ITJJNCEkX0MdWjSfzi9q9Cl2Cc14M7r6hnW9tAejB6S5HhPD5XnfITv-Irw6q87acWh-Qa2kMrlJXvDx3OM5Qz5Lsn3kl-DPn8tzwDMVV9GhlDfH27pMlL74uNyYvhMhWktT6pkOcJ7s3cbbLXL_xyby1Po3dLjazjz079kNp1gAk8BG4ifnDmVT1LWOO31RSncIe9kWlPEv2C3fxQ.Kgsbps5sxaTiTgM881AoSw.fkcG3y4fSEHGJ0AF7vgQ05LTSaTmhy2oGS8gbABm-cStlJORr1O9I3av-OrzVQlWgDhfFHfvQajK8NONH7jN_7NYdJSkw69ERMut73spiW72Pz1Hhbv2HyNk2yW4EhAeVueUWTuQ-OVXP8slzHkqExmKgWYmP9P9pTB0ShRmbxX8VluT5n45izLAiyLOyOdkf_Vtki0O0KMCEoSMvECGRfGzqxu9bVIXEXvbYwppT6ivila6ZD46LApq865wjH7BbxOPcaeA82JPwW-8pRTw-ewSpR1YiQowWPH0jumcAU5z3BBsDbpaf1NxRkp79moZh-1FMx7_IWEfHkcbu-WIY2pfsrbRP8izzug05-Hh9ybtmYn7gwO0Gea_ByXrw7bk0aVA_1w6-pDZidVuCze6fpsWuEdHDMb59gdZ_Wh9tUxxr9SMtRYjVRfvbZg7QISrgABVCNyOsEnApizdcxtBa4TCfvv-acw-YAujB_krNJR_mSgNp9bKSm_jMcSEroFC_ARrJRIYU9v323GziLwstBaQFie1DHoWCYrP1AO14tl23Vn4VgOiQPJdeeCjIh72xMBwAW7C8vxMO6aJ0mSuhGYn_4l9s2zSQj-mi29KnWK28t84X0SRvwUQ1P44tRVznmYSI2Q0s0lE5XmhjBhRyFfFnA43nJZVBDwugOkT3ybP0v5eD-Njl_2u1XI5vWsZC8reBPMv2LkUKq7mjut90B0m3RcHF0J8JOvIMrihmLcz5-aBqXjLPVir7ijqZttUVHCi9mWO_m6eP_VpGxlt5ZdUrWHntuzL-WXINRXTlbcL9R9aECnoopO2Dsb9RWGTGSaH9rluqBzubBiIAzVr2xL3DAmBblvLISa4uQEIXzYb5lbR-GWP11pO7tq2n9TmhqzIX-Pl-JqXtzXxgdbsDk4kkgX3HmHXYzhHV8Mwp-LWdCzmrCmk1TlQJw9asbzEFgCXImfbZ3Z_1FoIw-4updMxVwhL-YqhmSoNPl_0M1lIAOruiuO67G_bX-W0RirXCWmiuuFblwAbzjTfxd8P0QYrU5c3BH4-GrTcgOKCIP2YKNppadGMtqC79PpH3gbm05C353E7v-kDTHZm32R4sCxST8WsyO9Cz4MZNYNgOER0zBG4YeEHLBkX_w4Iq756SbD_q2YlojvaXnmX9FXbkyULfr2stNGuhbxcGt2Cp2xhdLqjJ6ZFN5l8JWIQvBmtXP9V9E4wdoMiRQ0JagXNYP0Th7-Qu2gu1tKxAAjWUHVqQF0I_JraMUobcqhrEnbOBTLo76uEi4qg54FUchmUc7xssXqIIiBdJ1bnvRm87VIMEu1MY4ZsriCgrGrGiKBUj_Oe2i_4W1GvoMzMlrMslcPPCU6eyIBltheueO85VcrzXAb9HhswgyWuJa6zW24okSDCocNKJJvVmIXF40G6raGKevhUAiD7ufIWERdyTkgIfF-HCKvpguNPy6BL2R8SDvQJldMse9UqLW3N_gDskqw-QS_CVEJkbHJvxcrk9Es.xDFI417_2Q9EveyfQxfEdx0FUOcJUFcXeUeL0YjQDbU"
+          Authorization: "Bearer eyJhbGciOiJSU0EtT0FFUCIsImVuYyI6IkEyNTZDQkMtSFM1MTIiLCJraWQiOiJQWFJJSERWMlJWX0VGUzVFNEpZT1Y4NDk3Sk5XWC1OSkVZTFFVTVNVIiwidHlwIjoiYXQrand0IiwiY3R5IjoiSldUIn0.c7_l4q0IhfcYhwKl-UAKZu5lmX6Q780A0cE_lD-kAIVbJW59_Tb4l_Odg3aBggRXj3dL8JD_bT6rZSPvF5ikS6_Ecyu2ZNAYnMxMuyHcx6HNQbEQbr7bqdu2HogkfO6XYNAaGKoJC9I1Z9-xEWYkqAYX0RvzjBspXu19Z7djOHz9pIKwyU-YbS9jiFBg2--8XJk-r77Fp_3CgR1MBnI808xBy9Me-RtDKWyLnTsXzcxNF4YH7lLTSzBAzmynzG9xcKR0Y8WPEszjc72ZUKOwSABXRuc3NrDr2nTSP3fwCmJxvzKJNqR4e98wHLe4lCfk3n-FcC11LpZot1eigUXkAA.9y0kyjuWpYX6RyRcTyvTFA.Mh0XZ4dEtsAZHVPV9T9F3ViT49W4T63bcif9V4qyHuUcjxVfVMs9nIj1VJEai7Bz_G3GW1-XGmf5M1mWvXdbuTvfEO0vb6IJlVg3frtKpD8aGqoEmSlQ9eJAicdNmCyJByffyHdv8LKPMgQaXtMarOIBDRDc8pD5MyfuJn0-RjfaEpjnfhdiM9TnWBkBDaBYka8AymsxW2Puxt4ARMOO_i2T993NJtLlYJtB2ncepa9bFAUpcFG1VAVOuo4gTYKEwYqd4JZHTFeJyjqiKSgN67j0KajDkqCY3g9MLsfVbAUfV_BHblxneFJi69cVajxDvnvnpJpvUOI8_dT1BwWSDkQJl0pvSpxlxx_LMQkWbdR7MJmezETtHVp975Ig5FoyTcQMYqGy9AWE3NXQkT92tJERUttRZdzR6vE-lZA0yIAKT90BudJY8Kg50hgw0dXR4oatmYZtgtkmDpCrYt2aZ8N_DjaSDRG7kLvigVd2cV01JUZq05eR0HjqVXNxFTpwSS87GduX15kHWE4zu6ZzaEhi57qxAa40p1pdubbZOB20A4G9GPSBlGAP-L6w4VDNu1y_4LSxM0pUodLBDJdMhOyckAKJL40rIrs5aDXjOUfLwpJNOny2JC7CQI--TvociPnQdFpQR8ncpmsNMknKD-iFJJT06g7xrLbcSUDLtA_RVR_qKN8L4n4tXlQQdTxCFgYkYthIAcd0xDHZg5Hxk4DFeAlKLkQQ70d8YUjFA6OzKb1zBszJHMhn3WDy_Sl3SiT2IoJOMTcAQeD8UCXrmbHKd4S3B341EuQICcNZwKmmgShTJSGZOQJu19clUTk2Rj-OJ1_8PK2FipF8QdFTabu06s4LwxqTTGLVay1d2hmYcdVdbhxWRSV3i6UEZU-z5nJHU-HZw8Ar42XWr2AtVl410muLTPi1_fyWknR-22DNETKQ6zShKtW6fO7Wgvz7uk803OIiuycZb2AEgJp5kN85CszOYn04Jt9NCkpVC2SQ9fGehq32d1iboMThYAVfif_HnbWoCj1Ta4GhVV0crdC-zEW5_zhC4aYshVXAsbHMuAPxKrXGmm9ZtJBphJTcVz-ppmJVDYxaXG1MSt-VaAMFgaak4a8TECcDH3F5cX7C1R-_azumYLWEktLpfOlJ9zsFu5b3iQMkqh4quW8g0MIDKP_nZOSOIAvyTSjjJrJUD6D0U0jN8iJNGCOWF5QED3GcZ2q5VQWFWzp61XksBRPKuNIdxuJcm0rGZ-m-Hvze6gALOAYPEV8aZabOmdX718o2gGPDQ87rtDT94Qx4vYYc2Ug_Drm1RvLKE5d1P59wYQFjW58x1q4A7NTrFn6O0-gQFG3ccuefdvNlKUlcdAdxLoqkPqR8oz8iPqdbuGLFKycmNj-qBXpPFSw7BmouECanDytFltIEJuHT-AHKIvjdzV7lAZo7PnauulkAfDcyOPWSS_0GccFHVICMfTadVr5byi2RfI3lyShDMC4HWt1EHNyYYMw__1_ECS241KQ.FHbe4k32mhfR2L_A4Nx2hC8ynYEJYH4fsXHTJmv3_qM"
         },
         failOnStatusCode: false
       }).then((otpRes) => {
@@ -97,4 +98,49 @@ Cypress.Commands.add("loginVerifiedUser", () => {
   login.clickloginbutton();
 
   cy.url({ timeout: 30000 }).should('not.include', 'login');
+});
+
+
+// country,state ,city ko auto ly k jana
+
+
+Cypress.Commands.add('selectCountryStateCity', () => {
+  // Intercepts yahan set karo
+  cy.intercept('GET', '**/GetCountriesAsync').as('getCountries');
+  cy.intercept('GET', '**/GetStatesByCountryIdAsync*').as('getStates');
+  cy.intercept('GET', '**/GetCitiesByStateIdAsync*').as('getCities');
+  
+  // Country dropdown ko interact karo (API trigger hogi)
+  cy.get('#address\\.country-select').should('be.visible');
+  
+  cy.wait('@getCountries', { timeout: 15000 }).then(({ response }) => {
+    expect(response.statusCode).to.eq(200);
+    
+    const country = response.body.result[0]; 
+    const countryId = country.value;
+    
+    cy.get('#address\\.country-select').select(countryId);
+    
+    // State API automatically trigger hogi country select karne par
+    cy.wait('@getStates', { timeout: 15000 }).then(({ response }) => {
+      expect(response.statusCode).to.eq(200);
+      
+      const state = response.body.result[0];
+      const stateId = state.value;
+      
+      cy.get('#address\\.state-select')
+        .should('be.visible')
+        .select(stateId);
+      
+      cy.wait('@getCities', { timeout: 15000 }).then(({ response }) => {
+        expect(response.statusCode).to.eq(200);
+        
+        const city = response.body.result[0];
+        
+        cy.get('#address\\.city-select')
+          .should('be.visible')
+          .select(city.value);
+      });
+    });
+  });
 });

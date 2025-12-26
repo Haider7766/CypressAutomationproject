@@ -33,5 +33,7 @@ describe('Brand Signup Flow', () => {
 
   it('Verified brand user should login successfully', () => {
     cy.loginVerifiedUser();
+    cy.log(' Brand account holder (Agent) logged in successfully')
   });
+  
 });
