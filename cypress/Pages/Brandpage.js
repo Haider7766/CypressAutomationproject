@@ -45,7 +45,7 @@ cy.get(this.enterbrandfname, { timeout: 40000 })
 }
 Enterbrandlastname(brandlname){
 
-    cy.get(this.enterbrandlname, {timeout: 40444})
+    cy.get(this.enterbrandlname, {timeout: 40000})
     .should('be.visible')
     .clear()
     .type(brandlname);
@@ -53,7 +53,7 @@ Enterbrandlastname(brandlname){
 
 Enterbrandname(brandname){
 
-    cy.get(this.enterbrandname, {timeout: 40444})
+    cy.get(this.enterbrandname, {timeout: 40000})
     .should('be.visible')
     .clear()
     .type(brandname);
@@ -82,7 +82,7 @@ cy.get(this.enterannualbudget, {timeout: 40444})
 }
 
 EnterEvent(event){
-cy.get(this.enterevent, {timeout: 40444}) 
+cy.get(this.enterevent, {timeout: 40000}) 
     .should('be.visible')
     .clear()
     .type(event);

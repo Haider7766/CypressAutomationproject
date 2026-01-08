@@ -14,7 +14,7 @@ describe('Agency Signup', () => {
   });
 
  it('Agency should verify OTP automatically', () => {
-    AgencyOnboarding.clickAgencyTab(); 
+    AgencyOnboarding.clickAgencyTab();  
     AgencyOnboarding.clickAgencyctnbtn();
     AgencyOnboarding.uploadProfileImageagncy();
     AgencyOnboarding.Enterfirstname(Data2.FirstName);
