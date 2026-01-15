@@ -6,7 +6,9 @@
     "reportPageTitle": "Cypress Test Report",
     "embeddedScreenshots": true,
     "inlineAssets": true,
-    "saveAllAttempts": false
+    "saveAllAttempts": false,
+    "json": true,
+    "overwrite": false
   },
   "mocha-junit-reporter": {
     "mochaFile": "cypress/reports/junit/results-[hash].xml"
