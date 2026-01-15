@@ -30,12 +30,12 @@ steps:
   displayName: 'Run Cypress Tests'
 
 # 5) Merge Mochawesome JSON
-- script: npx mochawesome-merge cypress/reports/*.json > cypress/reports/mochawesome/merged-report.json
+- script: npm run report:merge
   displayName: 'Merge Mochawesome JSON'
   condition: always()
 
 # 6) Generate HTML report
-- script: npx marge cypress/reports/mochawesome/merged-report.json --reportDir cypress/reports/mochawesome --inline
+- script: npm run report:generate
   displayName: 'Generate Mochawesome HTML Report'
   condition: always()
 

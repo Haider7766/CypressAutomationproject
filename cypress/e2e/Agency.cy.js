@@ -33,7 +33,7 @@ describe('Agency Signup', () => {
     cy.log(' Agency account holder (Agent) logged in successfully')
   });
 
-  it('New Test Case', () => {
+  it.skip('New Test Case', () => {
     cy.log('This is a new test case added via command');
   });
 

@@ -9,8 +9,8 @@
     "cy:run:report": "npm run clean && npx cypress run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json",
     "cy:open": "npx cypress open",
     "cy:run:headed": "npm run clean && npx cypress run --headed",
-    "report:merge": "mochawesome-merge cypress/reports/mochawesome/*.json > cypress/reports/mochawesome/merged-report.json",
-    "report:generate": "marge cypress/reports/mochawesome/merged-report.json --reportDir cypress/reports/html --inline --charts --reportPageTitle 'AMP Cypress Test Report' --reportFilename index.html",
+    "report:merge": "mochawesome-merge \"cypress/reports/mochawesome/.jsons/*.json\" > cypress/reports/mochawesome/merged-report.json",
+    "report:generate": "marge cypress/reports/mochawesome/merged-report.json --reportDir cypress/reports/mochawesome --inline --charts --reportPageTitle 'AMP Cypress Test Report' --reportFilename index.html",
     "report:full": "npm run report:merge && npm run report:generate",
     "test": "npm run cy:run:report && npm run report:full",
     "test:ci": "npm run clean && npx cypress run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json"
