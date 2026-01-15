@@ -1,29 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="Mocha Tests" time="188.737" tests="8" failures="0">
-  <testsuite name="Root Suite" timestamp="2026-01-15T09:21:51" tests="0" file="cypress\e2e\Onboardingprofiles.cy.js" time="0.000" failures="0">
+<testsuites name="Mocha Tests" time="38.543" tests="2" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-01-15T13:06:06" tests="0" file="cypress\e2e\Talent.cy.js" time="0.000" failures="0">
   </testsuite>
-  <testsuite name="Agency Signup" timestamp="2026-01-15T09:21:51" tests="3" time="85.758" failures="0">
-    <testcase name="Agency Signup Agency should verify OTP automatically" time="62.381" classname="Agency should verify OTP automatically">
+  <testsuite name="Talent Signup" timestamp="2026-01-15T13:06:06" tests="2" time="38.530" failures="0">
+    <testcase name="Talent Signup Talent onboarding flow" time="27.717" classname="Talent onboarding flow">
     </testcase>
-    <testcase name="Agency Signup Verified Agency user should login successfully" time="22.872" classname="Verified Agency user should login successfully">
-    </testcase>
-    <testcase name="Agency Signup New Test Case" time="0.188" classname="New Test Case">
-    </testcase>
-  </testsuite>
-  <testsuite name="Brand Signup Flow" timestamp="2026-01-15T09:23:17" tests="2" time="48.754" failures="0">
-    <testcase name="Brand Signup Flow Brand onboarding should complete successfully" time="31.707" classname="Brand onboarding should complete successfully">
-    </testcase>
-    <testcase name="Brand Signup Flow Verified brand user should login successfully" time="16.717" classname="Verified brand user should login successfully">
-    </testcase>
-  </testsuite>
-  <testsuite name="Talent Signup" timestamp="2026-01-15T09:24:05" tests="2" time="44.355" failures="0">
-    <testcase name="Talent Signup Talent onboarding flow" time="26.239" classname="Talent onboarding flow">
-    </testcase>
-    <testcase name="Talent Signup Verified Talent user should login successfully" time="17.816" classname="Verified Talent user should login successfully">
-    </testcase>
-  </testsuite>
-  <testsuite name="Book demo form" timestamp="2026-01-15T09:24:50" tests="1" time="9.814" failures="0">
-    <testcase name="Book demo form Should book demo successfully with valid data" time="9.663" classname="Should book demo successfully with valid data">
+    <testcase name="Talent Signup Verified Talent user should login successfully" time="10.643" classname="Verified Talent user should login successfully">
     </testcase>
   </testsuite>
 </testsuites>
