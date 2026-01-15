@@ -2,21 +2,21 @@ trigger:
   branches:
     include:
       - '*'   # Run Cypress on all branches
-
+ 
 pool:
   vmImage: 'windows-latest'
-
+ 
 steps:
 # 1) Install Node
 - task: NodeTool@0
   inputs:
     versionSpec: '18.x'
   displayName: 'Install Node.js'
-
+ 
 # 2) Install dependencies
 - script: npm ci
   displayName: 'Install dependencies'
-
+ 
 # 3) Ensure folders exist
 - powershell: |
     New-Item -ItemType Directory -Force -Path "cypress/reports/mochawesome" | Out-Null
@@ -24,21 +24,21 @@ steps:
     New-Item -ItemType Directory -Force -Path "cypress/videos" | Out-Null
   displayName: 'Ensure report folders exist'
   condition: always()
-
+ 
 # 4) Run Cypress tests
 - script: npx cypress run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json
   displayName: 'Run Cypress Tests'
-
+ 
 # 5) Merge Mochawesome JSON
-- script: npm run report:merge
+- script: npx mochawesome-merge cypress/reports/*.json > cypress/reports/mochawesome/merged-report.json
   displayName: 'Merge Mochawesome JSON'
   condition: always()
-
+ 
 # 6) Generate HTML report
-- script: npm run report:generate
+- script: npx marge cypress/reports/mochawesome/merged-report.json --reportDir cypress/reports/mochawesome --inline
   displayName: 'Generate Mochawesome HTML Report'
   condition: always()
-
+ 
 # 7) Inline CSS/JS fallback
 - powershell: |
     $reportDir = "cypress/reports/mochawesome"
@@ -63,7 +63,7 @@ steps:
     }
   displayName: 'Inline CSS/JS into HTML'
   condition: always()
-
+ 
 # 8) Publish reports, screenshots, videos
 - task: PublishBuildArtifacts@1
   inputs:
@@ -73,7 +73,7 @@ steps:
     failOnEmpty: false
   displayName: 'Publish Mochawesome HTML Report'
   condition: always()
-
+ 
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: 'cypress/screenshots'
@@ -82,7 +82,7 @@ steps:
     failOnEmpty: false
   displayName: 'Publish Screenshots'
   condition: always()
-
+ 
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: 'cypress/videos'
@@ -91,7 +91,7 @@ steps:
     failOnEmpty: false
   displayName: 'Publish Videos'
   condition: always()
-
+ 
 # 9) Publish JUnit test results
 - task: PublishTestResults@2
   inputs:
