@@ -29,13 +29,13 @@ steps:
 - script: npx cypress run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json
   displayName: 'Run Cypress Tests'
  
-# 5) Merge Mochawesome JSON
-- script: npx mochawesome-merge cypress/reports/*.json > cypress/reports/mochawesome/merged-report.json
+# 5) Merge Mochawesome JSON (FIXED)
+- script: npx mochawesome-merge "cypress/reports/mochawesome/*.json" > cypress/reports/mochawesome/merged-report.json
   displayName: 'Merge Mochawesome JSON'
   condition: always()
  
-# 6) Generate HTML report
-- script: npx marge cypress/reports/mochawesome/merged-report.json --reportDir cypress/reports/mochawesome --inline
+# 6) Generate HTML report (FIXED)
+- script: npx marge cypress/reports/mochawesome/merged-report.json --reportDir cypress/reports/mochawesome --inline --charts --reportFilename index.html
   displayName: 'Generate Mochawesome HTML Report'
   condition: always()
  
