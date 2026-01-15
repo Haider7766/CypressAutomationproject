@@ -2,21 +2,22 @@ import TalentProfile from '../Pages/Talentpage.js';
 const talentOnboarding = new TalentProfile();
 
 describe('Talent Signup', () => {
-  let Data1; 
+  let Data1;
+
   before(() => {
     cy.fixture('Talentdata').then((data) => {
-      Data1 = data; 
+      Data1 = data;
     });
     cy.createUserAndFetchOtp();
     cy.visit('/');
     cy.verifyOtpAutomatically();
+   
   });
-
-  it('Talent should verify OTP automatically', () => {
+  it('Talent onboarding flow', () => {
     talentOnboarding.clickTalent();
     talentOnboarding.clickContinuebtn();
     talentOnboarding.uploadProfileImage();
-    talentOnboarding.enterfname(Data1.firstname); 
+    talentOnboarding.enterfname(Data1.firstname);
     talentOnboarding.enterlname(Data1.lstname);
     talentOnboarding.clickexperties();
     talentOnboarding.clickdetailcontn();
@@ -24,11 +25,9 @@ describe('Talent Signup', () => {
     talentOnboarding.clickportfiloconibtn();
     talentOnboarding.clicktermconditionbox();
     talentOnboarding.clickconfirmationbtn();
-
   });
    it('Verified Talent user should login successfully', () => {
     cy.loginVerifiedUser();
     cy.log(' Talent account holder (Agent) logged in successfully')
   });
-  
 });

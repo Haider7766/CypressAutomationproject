@@ -1,11 +1,11 @@
 import AgencyProfile from '../Pages/Agencypage.js';
 const AgencyOnboarding = new AgencyProfile();
 describe('Agency Signup', () => {
-  let Data2; 
+  let Data2;
 
   before(() => {
     cy.fixture('Agencydata').then((data) => {
-      Data2 = data; 
+      Data2 = data;
     });
     cy.createUserAndFetchOtp();
     cy.visit('/');
@@ -13,8 +13,9 @@ describe('Agency Signup', () => {
 
   });
 
- it('Agency should verify OTP automatically', () => {
-    AgencyOnboarding.clickAgencyTab();  
+  it('Agency should verify OTP automatically', () => {
+
+    AgencyOnboarding.clickAgencyTab();
     AgencyOnboarding.clickAgencyctnbtn();
     AgencyOnboarding.uploadProfileImageagncy();
     AgencyOnboarding.Enterfirstname(Data2.FirstName);
@@ -25,12 +26,15 @@ describe('Agency Signup', () => {
     AgencyOnboarding.entermail1(Data2.invitelink1);
     AgencyOnboarding.clickenvitecontinuebtn();
     AgencyOnboarding.cliccheckboxtermagency();
-    AgencyOnboarding.clicagencyconfirmbtn(); 
+    AgencyOnboarding.clicagencyconfirmbtn();
   });
-   it('Verified Agency user should login successfully', () => {
+  it('Verified Agency user should login successfully', () => {
     cy.loginVerifiedUser();
     cy.log(' Agency account holder (Agent) logged in successfully')
   });
-  
+
+  it('New Test Case', () => {
+    cy.log('This is a new test case added via command');
+  });
+
 });
- 

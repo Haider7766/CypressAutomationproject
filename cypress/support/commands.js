@@ -20,7 +20,9 @@ Cypress.Commands.add("createUserAndFetchOtp", () => {
   }).then((createRes) => {
 
     if (createRes.status !== 200 && createRes.status !== 201) {
-      throw new Error("User creation failed");
+      cy.log("User creation failed. Status: " + createRes.status);
+      cy.log("Response body: " + JSON.stringify(createRes.body));
+      throw new Error(`User creation failed: ${JSON.stringify(createRes.body)}`);
     }
 
     // Save creds for later login
@@ -36,7 +38,7 @@ Cypress.Commands.add("createUserAndFetchOtp", () => {
         headers: {
           Accept: "application/json",
           "X-Tenant": "Artestri",
-          Authorization: "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlBYUklIRFYyUlZfRUZTNUU0SllPVjg0OTdKTldYLU5KRVlMUVVNU1UiLCJ0eXAiOiJhdCtqd3QifQ.eyJpc3MiOiJodHRwczovL2FydGVzdHJpLWRlbW8taWRzLmNyb2VtaW5jLmNvbTo4NDQzLyIsImV4cCI6MTc2NzkzNzU1NSwiaWF0IjoxNzY3ODUxMTU1LCJhdWQiOlsiaWRlbnRpdHktYXBpIiwiY2xpZW50LWFwaSJdLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIG9mZmxpbmVfYWNjZXNzIGlkZW50aXR5YXBpLnJlYWQgaWRlbnRpdHlhcGkud3JpdGUgY2xpZW50YXBpLnJlYWQgY2xpZW50YXBpLndyaXRlIiwianRpIjoiMGY2ODk0ZmMtZThjNC00MTEwLWE4NDQtNzYxZjA1NTM4ZmRjIiwic3ViIjoic2VydmljZS13b3JrIiwibmFtZSI6IlNlcnZpY2UgV29yayAoQWxsIEZsb3dzKSIsInRlbmFuY3lfbmFtZSI6IkFydGVzdHJpIiwib2lfcHJzdCI6InNlcnZpY2Utd29yayIsIm9pX2F1X2lkIjoiMjM5MDc1YzQtNDc1ZS00NGY3LTg3ZTctMjczNjYzYTVmNGY0IiwiY2xpZW50X2lkIjoic2VydmljZS13b3JrIiwib2lfdGtuX2lkIjoiM2IyOTFiNGEtNjZiMC00NjI5LTg1NTAtODI0NDAyODgzMjg3In0.XwMAbJIFEj-wMlR8lJHq6VAxuh-fD0-lMJiU-2DG_NQJLFPmSQdythoZZvOhvSxj4z9n9R9fYmwb-nTAMpbjPD2ACkf_EfQEbCNeZ50TBW-g9VlxDabV7AlLcsaistR-jHIYZJclonREe9N3Tej4nccV-nXIxgT0XJ7g3WnXQx7aQJxkzituTo9acwCtQawfC3nT8qutOseP6CqPSRnzwBGoJqI2oMG5ED8X4v-E2lxCnfohZJwonnkZeeW08DXZ2E8WgpYQEloIuLnXDXADmQTZS5Pl5n32LzuB70rjDpndEc17T2iX53FyVkBaTljFrnJHPPCsE6yp0gCgczwBJg"
+          Authorization: "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlBYUklIRFYyUlZfRUZTNUU0SllPVjg0OTdKTldYLU5KRVlMUVVNU1UiLCJ0eXAiOiJhdCtqd3QifQ.eyJpc3MiOiJodHRwczovL2FydGVzdHJpLWRlbW8taWRzLmNyb2VtaW5jLmNvbTo4NDQzLyIsImV4cCI6MTc2ODU0OTU1NywiaWF0IjoxNzY4NDYzMTU3LCJhdWQiOlsiaWRlbnRpdHktYXBpIiwiY2xpZW50LWFwaSJdLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIG9mZmxpbmVfYWNjZXNzIGlkZW50aXR5YXBpLnJlYWQgaWRlbnRpdHlhcGkud3JpdGUgY2xpZW50YXBpLnJlYWQgY2xpZW50YXBpLndyaXRlIiwianRpIjoiZTUxMTljNDgtNzI3Yi00ZDI2LTlhMGMtMzY0OWM2MWViZjc3Iiwic3ViIjoic2VydmljZS13b3JrIiwibmFtZSI6IlNlcnZpY2UgV29yayAoQWxsIEZsb3dzKSIsInRlbmFuY3lfbmFtZSI6IkFydGVzdHJpIiwib2lfcHJzdCI6InNlcnZpY2Utd29yayIsIm9pX2F1X2lkIjoiZTExNjhhMDctYzgzMC00NTczLWIxMDQtMDE2MjZjNjIyOTJlIiwiY2xpZW50X2lkIjoic2VydmljZS13b3JrIiwib2lfdGtuX2lkIjoiMWM0OTEzMWItZjY3Yi00NzFhLWJjOWItYzk3YmEwMWNkN2RjIn0.hfLP5Gg62phdG60uMngcZtk3l4JNDXGPEpdLjHZ6sXxuJqN2Y7Gp4AYxP4eBftbSKFXgGfYUzq4xtugtJjN35yWQdXu3tIkHRMyiOgGscluJqdqTb3hOnty0uK2B4P5-dRVQSiqr_-ZCGm7slgn0Mq6mF82h0OE-85G2VtH1gnBf6mA4qb1PsDzc7jMvT6UjIOE9z4Ohef4bHxokODAdF4wijcDw_N52yXQLP2Y6Sjel4em3aCXAKaqIbguoA8JgOnMTKrGg1ZtpScN0O2CUu5psO-3W5-xGqPAVYeBAcEfjFypVBlNgk5OVKWWz2vhFtQ3BfHKhUwibTZyeP04BMQ"
         },
         failOnStatusCode: false
       }).then((otpRes) => {
@@ -90,48 +92,43 @@ Cypress.Commands.add("verifyOtpAutomatically", () => {
 
 Cypress.Commands.add("loginVerifiedUser", () => {
   const login = new Login();
-
   cy.visit('/login');
-
   login.clickmail(Cypress.env('signupEmail'));
   login.clickpassword(Cypress.env('signupPassword'));
-  login.clickloginbutton();
-
-  cy.url({ timeout: 30000 }).should('not.include', 'login');
+  login.clickloginbutton(); cy.url({ timeout: 30000 }).should('not.include', 'login');
 });
-
 
 // country,state ,city ko auto ly k jana
 
 Cypress.Commands.add('selectCountryStateCity', () => {
- 
+
   // Country dropdown 
   cy.get('#address\\.country-select').should('be.visible');
-  
+
   cy.wait('@getCountries', { timeout: 15000 }).then(({ response }) => {
     expect(response.statusCode).to.eq(200);
-    
-    const country = response.body.result[4]; 
+
+    const country = response.body.result[4];
     const countryId = country.value;
-    
+
     cy.get('#address\\.country-select').select(countryId);
-    
+
     // State API automatically trigger 
     cy.wait('@getStates', { timeout: 15000 }).then(({ response }) => {
       expect(response.statusCode).to.eq(200);
-      
+
       const state = response.body.result[0];
       const stateId = state.value;
-      
+
       cy.get('#address\\.state-select')
         .should('be.visible')
         .select(stateId);
-      
+
       cy.wait('@getCities', { timeout: 15000 }).then(({ response }) => {
         expect(response.statusCode).to.eq(200);
-        
+
         const city = response.body.result[0];
-        
+
         cy.get('#address\\.city-select')
           .should('be.visible')
           .select(city.value);
