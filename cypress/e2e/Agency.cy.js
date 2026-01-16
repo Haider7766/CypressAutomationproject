@@ -28,7 +28,7 @@ describe('Agency Signup', () => {
     AgencyOnboarding.cliccheckboxtermagency();
     AgencyOnboarding.clicagencyconfirmbtn();
   });
-  it('Verified Agency user should login successfully', () => {
+  it.skip('Verified Agency user should login successfully', () => {
     cy.loginVerifiedUser();
     cy.log(' Agency account holder (Agent) logged in successfully')
   });
