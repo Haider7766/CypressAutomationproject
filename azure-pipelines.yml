@@ -22,11 +22,11 @@ steps:
   displayName: 'Ensure folders exist'
   condition: always()
 
-# ✅ Updated Cypress Run Step
 - script: npx cypress run
   displayName: 'Run Cypress Tests'
   condition: always()
 
+# Publish HTML reports
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: 'cypress/reports/mochawesome'
@@ -36,6 +36,7 @@ steps:
   displayName: 'Publish Mochawesome HTML Report'
   condition: always()
 
+# Publish screenshots
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: 'cypress/screenshots'
@@ -44,6 +45,7 @@ steps:
     failOnEmpty: false
   condition: always()
 
+# Publish videos
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: 'cypress/videos'
