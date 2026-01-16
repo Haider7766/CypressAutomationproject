@@ -22,7 +22,8 @@ steps:
   displayName: 'Ensure folders exist'
   condition: always()
 
-- script: npx cypress run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json
+# ✅ Updated Cypress Run Step
+- script: npx cypress run
   displayName: 'Run Cypress Tests'
   condition: always()
 
