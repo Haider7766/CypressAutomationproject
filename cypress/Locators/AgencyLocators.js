@@ -3,7 +3,7 @@ const Agency = {
    AContin: "button[class='btn onboardingSignUpAs-continue-btn px-5 py-2 fw-bold text-white']",
    firstname: "#firstName-input",
    lastname: "#lastName-input",
-   AgencyName:"#agencyName-input",
+   AgencyName: "#agencyName-input",
    TalentRepresent: "label[for='talentTypes-67']",
    AgencyCont: "div[class='tab-pane active'] button:nth-child(2)",
    invitemember: ":nth-child(2) > .custom-input",
@@ -11,8 +11,7 @@ const Agency = {
    Agencytermcndcheckbox: "#termsCheck",
    Agencyconfirmbtn: "div[class='tab-pane active'] button:nth-child(2)",
    fileInputagency: "input[type='file']"
-//.justify-content-end > .navbar-nav > :nth-child(2) > .btn
-  
+
 }
 
 export default Agency;
