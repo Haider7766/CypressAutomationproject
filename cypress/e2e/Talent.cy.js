@@ -11,7 +11,7 @@ describe('Talent Signup', () => {
     cy.createUserAndFetchOtp();
     cy.visit('/');
     cy.verifyOtpAutomatically();
-   
+
   });
   it('Talent onboarding flow', () => {
     talentOnboarding.clickTalent();
@@ -26,8 +26,10 @@ describe('Talent Signup', () => {
     talentOnboarding.clicktermconditionbox();
     talentOnboarding.clickconfirmationbtn();
   });
-   it('Verified Talent user should login successfully', () => {
+  it('Verified Talent user should login successfully', () => {
     cy.loginVerifiedUser();
+    cy.get("a[class='nav-link menu-link active'] span").should('contain', 'Dashboard');
+    cy.url().should('eq', 'https://demo.artestri.com:8443/dashboard');
     cy.log(' Talent account holder (Agent) logged in successfully')
   });
 });

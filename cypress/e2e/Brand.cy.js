@@ -33,7 +33,9 @@ describe('Brand Signup Flow', () => {
 
   it('Verified brand user should login successfully', () => {
     cy.loginVerifiedUser();
+    cy.get("a[class='nav-link menu-link active'] span").should('contain', 'Dashboard');
+    cy.url().should('eq', 'https://demo.artestri.com:8443/dashboard');
     cy.log(' Brand account holder (Brand) logged in successfully')
   });
-  
+
 });

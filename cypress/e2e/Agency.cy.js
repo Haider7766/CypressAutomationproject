@@ -28,13 +28,12 @@ describe('Agency Signup', () => {
     AgencyOnboarding.cliccheckboxtermagency();
     AgencyOnboarding.clicagencyconfirmbtn();
   });
-  it.skip('Verified Agency user should login successfully', () => {
+  it('Verified Agency user should login successfully', () => {
     cy.loginVerifiedUser();
+    cy.get("a[class='nav-link menu-link active'] span").should('contain', 'Dashboard');
+    cy.url().should('eq', 'https://demo.artestri.com:8443/dashboard');
     cy.log(' Agency account holder (Agent) logged in successfully')
   });
 
-  it('New Test Case', () => {
-    cy.log('This is a new test case added via command');
-  });
 
 });

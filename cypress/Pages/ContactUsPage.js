@@ -22,8 +22,17 @@ class ContactUsPage {
     }
 
     verifySuccessMessage() {
-        cy.get(ContactUsLocators.successMessage).should('be.visible').then(() => {
-            cy.log('Contact us request submitted successfully');
+        cy.get(ContactUsLocators.successMessage, { timeout: 10000 })
+            .should('be.visible')
+            .then(($el) => {
+                if ($el.length > 0) {
+                    cy.log('Contact us request submitted successfully');
+                }
+            });
+        cy.get('body').then(($body) => {
+            if ($body.find(ContactUsLocators.successMessage).length === 0) {
+                cy.log('error');
+            }
         });
     }
 }
