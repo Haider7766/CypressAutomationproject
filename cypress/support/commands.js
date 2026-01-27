@@ -38,7 +38,7 @@ Cypress.Commands.add("createUserAndFetchOtp", () => {
         headers: {
           Accept: "application/json",
           "X-Tenant": "Artestri",
-          Authorization: "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlBYUklIRFYyUlZfRUZTNUU0SllPVjg0OTdKTldYLU5KRVlMUVVNU1UiLCJ0eXAiOiJhdCtqd3QifQ.eyJpc3MiOiJodHRwczovL2FydGVzdHJpLWRlbW8taWRzLmNyb2VtaW5jLmNvbTo4NDQzLyIsImV4cCI6MTc2OTE0MTYzOCwiaWF0IjoxNzY5MDU1MjM4LCJhdWQiOlsiaWRlbnRpdHktYXBpIiwiY2xpZW50LWFwaSJdLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIG9mZmxpbmVfYWNjZXNzIGlkZW50aXR5YXBpLnJlYWQgaWRlbnRpdHlhcGkud3JpdGUgY2xpZW50YXBpLnJlYWQgY2xpZW50YXBpLndyaXRlIiwianRpIjoiMTM3ZjMxMjMtMjE2OS00MjgzLThiNmEtMjdiMjU0MzI3NWMwIiwic3ViIjoic2VydmljZS13b3JrIiwibmFtZSI6IlNlcnZpY2UgV29yayAoQWxsIEZsb3dzKSIsInRlbmFuY3lfbmFtZSI6IkFydGVzdHJpIiwib2lfcHJzdCI6InNlcnZpY2Utd29yayIsIm9pX2F1X2lkIjoiMTU5MGY3ZjMtZGQ2YS00YmM1LWEwZTktOTUyMDg2ZWViYTAyIiwiY2xpZW50X2lkIjoic2VydmljZS13b3JrIiwib2lfdGtuX2lkIjoiMzM5OWMxYTItMzMyNi00ZTI1LWIwZTItNWIzOTNiMzkyZGQ3In0.lk9n1L0qcOeftskUk60LMzdOwLIoUaUWzpxXe9ia0_bmfk4zl5GBxSVJhS0B-kYFFQvn9twiz5IJIaem5O0W_Qz3Pyufhs1bpXR6UQbrt77JV68AzaPQibSYMaYT0KqxKBl7WtS9DQbf5ikrgLJWwXJHiQ47JpfiipBDHaPC_BWL9Ua6YxFvfVeK3Ww05UrELk1MW8oUt3wy658ac3tWkQEir_TcmiCe5ghDJfZfIokRSWSl4-f0eIr6UHtbNFNX7KKQ9fWVvW45lVCLewn0wthWrggf19kjO-HZ4w38yM8-ta31eak9QMM4dfIuZD3QLafsLcZ5FhQ2S2eD_3OPwQ"
+          Authorization: "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlBYUklIRFYyUlZfRUZTNUU0SllPVjg0OTdKTldYLU5KRVlMUVVNU1UiLCJ0eXAiOiJhdCtqd3QifQ.eyJpc3MiOiJodHRwczovL2FydGVzdHJpLWRlbW8taWRzLmNyb2VtaW5jLmNvbTo4NDQzLyIsImV4cCI6MTc2OTU4MDY1MywiaWF0IjoxNzY5NDk0MjUzLCJhdWQiOlsiaWRlbnRpdHktYXBpIiwiY2xpZW50LWFwaSJdLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIG9mZmxpbmVfYWNjZXNzIGlkZW50aXR5YXBpLnJlYWQgaWRlbnRpdHlhcGkud3JpdGUgY2xpZW50YXBpLnJlYWQgY2xpZW50YXBpLndyaXRlIiwianRpIjoiOWI3ODU4MTUtODczOC00ZTliLWFkNTctNTQyMWVjMGZkOGNiIiwic3ViIjoic2VydmljZS13b3JrIiwibmFtZSI6IlNlcnZpY2UgV29yayAoQWxsIEZsb3dzKSIsInRlbmFuY3lfbmFtZSI6IkFydGVzdHJpIiwib2lfcHJzdCI6InNlcnZpY2Utd29yayIsIm9pX2F1X2lkIjoiZWU5YTdmZjItNjk5MS00ZGU4LWE5NDMtZTdiNTM1MjNmZTk2IiwiY2xpZW50X2lkIjoic2VydmljZS13b3JrIiwib2lfdGtuX2lkIjoiZjUyNTUxYmQtNWRiMi00NTg4LWIxYTAtMzg5ZWRlMzMwYmI1In0.T8AL2OHE43Ag0D53GPTMsI1R-_gM97wUngbI6oMBI2JljUPoosu5K0SOcT0_l7FVefUUqaWAjngT7FiAfGfhoXOmWpww6tLQEIIj4oEmX9wogBCgV3zNSzdS2Q8X3kxR_KiQXv0x2II2_cBW0dw5pPVUA2w3v7D_xm2lwIraAwcdDGAN1L2JZpNbtK89jrw-iYNh-mR98tVj7LwMOAfEvPSVUwby0PcgbanpBFXI4mukfShtZ57zzkEZFXUiWod_WB2RVkhqShUYYL4Z54xQ10IiOt85QEV4Tswo3Fw1aijau6Kfic240S9ERzUiki0CAjWy60U1-HFJrc1rqPNdRw"
         },
         failOnStatusCode: false
       }).then((otpRes) => {
@@ -108,7 +108,30 @@ Cypress.Commands.add('selectCountryStateCity', () => {
   cy.wait('@getCountries', { timeout: 15000 }).then(({ response }) => {
     expect(response.statusCode).to.eq(200);
 
-    const country = response.body.result[4];
+    let items = response.body.result || response.body.data;
+
+    // If the body is an array itself, use it
+    if (!items && Array.isArray(response.body)) {
+      items = response.body;
+    }
+
+    if (!items || !Array.isArray(items) || items.length === 0) {
+      cy.log("API response does not contain countries array. Body: " + JSON.stringify(response.body));
+      throw new Error("No countries found in API response");
+    }
+
+    // Find Afghanistan specifically
+    const country = items.find(i =>
+      i.label === 'Afghanistan' ||
+      i.name === 'Afghanistan' ||
+      i.text === 'Afghanistan'
+    );
+
+    if (!country) {
+      cy.log("Afghanistan not found in list. Available: " + items.map(i => i.label || i.name).slice(0, 10).join(', '));
+      throw new Error("Could not find country 'Afghanistan'");
+    }
+
     const countryId = country.value;
 
     cy.get('#address\\.country-select').select(countryId);
@@ -117,7 +140,16 @@ Cypress.Commands.add('selectCountryStateCity', () => {
     cy.wait('@getStates', { timeout: 15000 }).then(({ response }) => {
       expect(response.statusCode).to.eq(200);
 
-      const state = response.body.result[0];
+      let items = response.body.result || response.body.data;
+      if (!items && Array.isArray(response.body)) {
+        items = response.body;
+      }
+
+      if (!items || !Array.isArray(items) || items.length === 0) {
+        cy.log("API response does not contain states array. Body: " + JSON.stringify(response.body));
+        throw new Error("No states found");
+      }
+      const state = items[0];
       const stateId = state.value;
 
       cy.get('#address\\.state-select')
@@ -127,7 +159,16 @@ Cypress.Commands.add('selectCountryStateCity', () => {
       cy.wait('@getCities', { timeout: 15000 }).then(({ response }) => {
         expect(response.statusCode).to.eq(200);
 
-        const city = response.body.result[0];
+        let items = response.body.result || response.body.data;
+        if (!items && Array.isArray(response.body)) {
+          items = response.body;
+        }
+
+        if (!items || !Array.isArray(items) || items.length === 0) {
+          cy.log("API response does not contain cities array. Body: " + JSON.stringify(response.body));
+          throw new Error("No cities found");
+        }
+        const city = items[0];
 
         cy.get('#address\\.city-select')
           .should('be.visible')
