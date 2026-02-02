@@ -1,4 +1,4 @@
 export function generateUniqueEmail(prefix = "demo") {
-  const timestamp = Date.now();
-  return `${prefix}_${timestamp}@gmail.com`;
+  const random = Math.floor(1000 + Math.random() * 9000);
+  return `${prefix}${random}@gmail.com`;
 }

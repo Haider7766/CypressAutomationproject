@@ -29,7 +29,7 @@ describe('Talent Signup', () => {
   it('Verified Talent user should login successfully', () => {
     cy.loginVerifiedUser();
     cy.get("a[class='nav-link menu-link active'] span").should('contain', 'Dashboard');
-    cy.url().should('eq', 'https://demo.artestri.com:8443/dashboard');
-    cy.log(' Talent account holder (Agent) logged in successfully')
+    cy.url().should('eq', 'https://artestri-qa-web.neocorebank.com:8443/dashboard');
+    cy.log(' Talent account holder  logged in successfully')
   });
 });

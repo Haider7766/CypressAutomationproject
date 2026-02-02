@@ -9,7 +9,7 @@ class ContactUsLocators {
     phone = '#phoneNumber-input';
     message = '#detail-input';
     submitBtn = "button[type='submit']";
-    successMessage = '.col-md-12 > .h1-main';
+    successMessage = '.h1-main';
 }
 
 export default new ContactUsLocators();

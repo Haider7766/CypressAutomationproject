@@ -13,7 +13,7 @@ module.exports = defineConfig({
   },
 
   e2e: {
-    baseUrl: 'https://demo.artestri.com:8443/artestri-landing/',
+    baseUrl: 'https://artestri-qa-web.neocorebank.com:8443/artestri-landing',
     chromeWebSecurity: false,
     supportFile: 'cypress/support/e2e.js',
     specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',

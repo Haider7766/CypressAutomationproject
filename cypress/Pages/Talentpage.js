@@ -74,11 +74,17 @@ cy.get(this.termandcodition, { timeout: 40000 })
       .should('be.visible')
       .click();
   }
-   clickconfirmationbtn(){
-cy.get(this.confimbutton, { timeout: 40000 })
-      .should('be.visible')
-      .click();
-  }
+  clickconfirmationbtn() {
+
+  cy.intercept('POST', '**/api/v1/Talent/CreateAsync').as('createTalent');
+
+  cy.get(this.confimbutton, { timeout: 40000 })
+    .should('be.visible')
+    .click();
+  cy.wait('@createTalent', { timeout: 60000 })
+    .its('response.statusCode')
+    .should('be.oneOf', [200, 201]);
+}
 }
 
 

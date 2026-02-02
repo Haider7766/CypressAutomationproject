@@ -28,7 +28,9 @@ describe('Contact Us Form Automation', () => {
             contactData.Phone,
             contactData.Message
         );
+        cy.intercept('POST', '**/ContactUsRequest/CreateAsync').as('contactUsSubmit');
         contactUsPage.clickSubmit();
+        cy.wait('@contactUsSubmit', { timeout: 20000 });
         contactUsPage.verifySuccessMessage();
     });
 });

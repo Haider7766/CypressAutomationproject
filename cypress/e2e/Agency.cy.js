@@ -31,7 +31,7 @@ describe('Agency Signup', () => {
   it('Verified Agency user should login successfully', () => {
     cy.loginVerifiedUser();
     cy.get("a[class='nav-link menu-link active'] span").should('contain', 'Dashboard');
-    cy.url().should('eq', 'https://demo.artestri.com:8443/dashboard');
+    cy.url().should('eq', 'https://artestri-qa-web.neocorebank.com:8443/dashboard');
     cy.log(' Agency account holder (Agent) logged in successfully')
   });
 

@@ -7,7 +7,7 @@ describe('Book demo form', () => {
   const reasons = [
     '.reasons-list > :nth-child(1)',
     ':nth-child(2) > .align-items-start > .text-start',
-    ':nth-child(3) > .align-items-start > .text-start > .reason-title' // Third time
+    ':nth-child(3) > .align-items-start > .text-start > .reason-title' 
   ];
 
   before(() => {

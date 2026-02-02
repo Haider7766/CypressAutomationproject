@@ -22,18 +22,17 @@ class ContactUsPage {
     }
 
     verifySuccessMessage() {
-        cy.get(ContactUsLocators.successMessage, { timeout: 10000 })
+        // Use a more flexible approach to find the success message
+        cy.get(ContactUsLocators.successMessage, { timeout: 20000 })
             .should('be.visible')
             .then(($el) => {
-                if ($el.length > 0) {
-                    cy.log('Contact us request submitted successfully');
+                const text = $el.text();
+                cy.log('Message found: ' + text);
+                // If it still says "Let's Connect", we might need to wait longer for it to be replaced
+                if (text.toLowerCase().includes('connect')) {
+                    cy.contains('Contact us request submitted successfully', { timeout: 10000 }).should('be.visible');
                 }
             });
-        cy.get('body').then(($body) => {
-            if ($body.find(ContactUsLocators.successMessage).length === 0) {
-                cy.log('error');
-            }
-        });
     }
 }
 
