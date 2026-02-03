@@ -85,9 +85,12 @@ cy.get(this.invitemember1, { timeout: 40000 })
       .click();
   }
   clicagencyconfirmbtn() {
-    cy.get(this.agencyconfirmationbtn, { timeout: 40000 })
-      .should('be.visible')
-      .click();
+  
+
+  cy.get(this.agencyconfirmationbtn, { timeout: 40000 })
+    .should('be.visible')
+    .click();
+  
   }
 }
 

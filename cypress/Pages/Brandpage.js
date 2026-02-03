@@ -101,9 +101,11 @@ cy.get(this.clickbrandcheckbox, { timeout: 40000 })
       .click();
   }
   ClicBconfirmation(){
-cy.get(this.clicklbrandconfrmbtn, { timeout: 40000 })
-      .should('be.visible')
-      .click();
+
+  cy.get(this.clicklbrandconfrmbtn, { timeout: 40000 })
+    .should('be.visible')
+    .click();
+  
   }
 }
 

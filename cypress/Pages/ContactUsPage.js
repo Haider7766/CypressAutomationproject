@@ -21,19 +21,7 @@ class ContactUsPage {
         cy.get(ContactUsLocators.submitBtn).click();
     }
 
-    verifySuccessMessage() {
-        // Use a more flexible approach to find the success message
-        cy.get(ContactUsLocators.successMessage, { timeout: 20000 })
-            .should('be.visible')
-            .then(($el) => {
-                const text = $el.text();
-                cy.log('Message found: ' + text);
-                // If it still says "Let's Connect", we might need to wait longer for it to be replaced
-                if (text.toLowerCase().includes('connect')) {
-                    cy.contains('Contact us request submitted successfully', { timeout: 10000 }).should('be.visible');
-                }
-            });
-    }
+    
 }
 
 export default ContactUsPage;
