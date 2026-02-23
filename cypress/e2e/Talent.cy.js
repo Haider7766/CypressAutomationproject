@@ -1,6 +1,7 @@
 import TalentProfile from '../Pages/Talentpage.js';
+import DashboardProfilePage from '../Pages/DashboardProfilePage.js';
 const talentOnboarding = new TalentProfile();
-
+const dashboardProfile = new DashboardProfilePage();
 describe('Talent Signup', () => {
   let Data1;
 
@@ -31,5 +32,7 @@ describe('Talent Signup', () => {
     cy.get("a[class='nav-link menu-link active'] span").should('contain', 'Dashboard');
     cy.url().should('eq', 'https://artestri-qa-web.neocorebank.com:8443/dashboard');
     cy.log(' Talent account holder  logged in successfully')
+    dashboardProfile.clickProfileMenu();
+    talentOnboarding.clickAddMedia();
   });
 });
